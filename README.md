@@ -21,7 +21,7 @@ foo@bar:~$ cd mars_algorithm
 
 **How to use MARS**
 
-First, you must ensure that the python modules "numpy" and "scipy" are installed on your local machine. A quick and easy way to do this is to use the "pip" python package manager. First, install pip by issuing the command
+First, ensure that the python modules "numpy" and "scipy" are installed on your local machine. A quick and easy way to do this is to use the "pip" python package manager. First, install pip by issuing the command
 ```
 foo@bar:~$ sudo apt-get install python-pip 
 ```
