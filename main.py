@@ -6,6 +6,10 @@
 import mars
 import numpy as np
 
+# Test imports from hereon
+import time
+import scipy as sp
+
 
 """
 Input Variables:
@@ -36,7 +40,11 @@ acf= s.acf()
 
 # Step 2: Assemble & solve nonlinear system of equations
 guess= s.f0()
+
+time1 = time.clock()
 alpha= s.ncgm(guess)
+time2 = time.clock()
+
 
 # Step 3: Generate a random number matrix
 rand= s.eta()
