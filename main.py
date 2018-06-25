@@ -35,22 +35,33 @@ fout='heightmap.dat'
 # Create an instance of the surface class
 s= mars.surface(n,m,M,N,cutoff,dx,dy)
 
+time1 = time.clock()
 # Step 1: Specify ACF
 acf= s.acf()
 
+time2 = time.clock()
 # Step 2: Assemble & solve nonlinear system of equations
 guess= s.f0()
 
-time1 = time.clock()
+time3 = time.clock()
 alpha= s.ncgm(guess)
-time2 = time.clock()
 
-
+time4 = time.clock()
 # Step 3: Generate a random number matrix
 rand= s.eta()
 
+time5 = time.clock()
 # Step 4: Generate the heightmap
 hmap= s.heightmap(alpha,rand)
 
+time6 = time.clock()
 # Step 5: Save the surface
 s.save(fout)
+
+print("ACF time: " + str(time2-time1))
+print("F0 time: " + str(time3-time2))
+print("NCGM time: " + str(time4-time3))
+print("ETA time: " + str(time5-time4))
+print("Heightmap time: " + str(time6-time5))
+print("Total runtime: " + str(time6-time1))
+
