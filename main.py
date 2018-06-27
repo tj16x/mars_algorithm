@@ -33,7 +33,7 @@ cutoff=1e-5
 fout='heightmap.dat'
 
 # Create an instance of the surface class
-s= mars.surface(n,m,M,N,cutoff,dx,dy)
+s= mars.surface(m,n,M,N,cutoff,dx,dy)
 
 time1 = time.clock()
 # Step 1: Specify ACF
