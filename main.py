@@ -9,7 +9,8 @@ import numpy as np
 # Test imports from hereon
 import time
 import scipy as sp
-
+from scipy.optimize import root
+import matplotlib.pyplot as plt
 
 """
 Input Variables:
@@ -44,8 +45,16 @@ time2 = time.clock()
 guess= s.f0()
 
 time3 = time.clock()
-alpha= s.ncgm(guess)
+# Place for open heart surgery
 
+#alpha= s.ncgm(guess)
+
+
+idx = lambda arr,vec: (np.abs(arr-vec)).argmin()+1
+sol = root(s.f, s.f0().flatten(), acf, method='krylov', tol=1e-7)
+alpha = np.reshape(sol['x'], [idx(acf[:,0],cutoff),idx(acf[0,:],cutoff)])
+
+# Cut up to here, doc!
 time4 = time.clock()
 # Step 3: Generate a random number matrix
 rand= s.eta()
@@ -57,6 +66,8 @@ hmap= s.heightmap(alpha,rand)
 time6 = time.clock()
 # Step 5: Save the surface
 s.save(fout)
+
+plt.imshow(hmap, origin='lower')
 
 print("ACF time: " + str(time2-time1))
 print("F0 time: " + str(time3-time2))
