@@ -38,7 +38,8 @@ class surface():
         self.c = c
         self.dx = dx
         self.dy = dy
-           
+        self.iterations = 0
+
     # Assemble autocorrelation coefficient function (ACF)
     def acf(self):
         " Assemble [n,m] autocorrelation coefficient function "
@@ -167,18 +168,25 @@ class surface():
 
         return alpha
     
-    
     # Krylov approximation for inverse Jacobian
     def krylov(self, tolerance=1e-7):
         print "\nKrylov method initialised...\n"
         
-        x = root(self.f, self.f0().flatten(), self.acf, method='krylov', tol=tolerance)
+        x = root(self.f, self.f0().flatten(), self.acf, method='krylov', tol=tolerance, callback=self.plot_residual)
         print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")
         alpha = np.reshape(x['x'], [self.n,self.m])
     
         self.residual(alpha)
 
         return alpha
+    
+    def plot_residual(self, solution, residual):
+        plt.scatter(self.iterations, residual[0])
+        plt.pause(0.05)
+        self.iterations += 1
+        print(residual)
+        
+        
     
 
     # Assemble the Jacobian for solution to non-linear system of equations
