@@ -170,13 +170,14 @@ class surface():
     
     # Krylov approximation for inverse Jacobian
     def krylov(self, tolerance=1e-7):
-        print "\nKrylov method initialised..."
+        print "\nKrylov method initialised...\n"
         
         x = root(self.f, self.f0().flatten(), self.acf, method='krylov', tol=tolerance)
-        
+        print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")
         alpha = np.reshape(x['x'], [self.n,self.m])
     
-        print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.")
+        self.residual(alpha)
+
         return alpha
     
 
