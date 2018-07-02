@@ -45,16 +45,9 @@ time2 = time.clock()
 guess= s.f0()
 
 time3 = time.clock()
-# Place for open heart surgery
-
 #alpha= s.ncgm(guess)
+alpha= s.krylov()
 
-
-idx = lambda arr,vec: (np.abs(arr-vec)).argmin()+1
-sol = root(s.f, s.f0().flatten(), acf, method='krylov', tol=1e-7)
-alpha = np.reshape(sol['x'], [idx(acf[:,0],cutoff),idx(acf[0,:],cutoff)])
-
-# Cut up to here, doc!
 time4 = time.clock()
 # Step 3: Generate a random number matrix
 rand= s.eta()
