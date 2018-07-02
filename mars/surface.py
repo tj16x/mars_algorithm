@@ -14,7 +14,7 @@
 # Import libraries
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import fsolve
+from scipy.optimize import fsolve, root
 
 # Surface class
 class surface():
@@ -166,6 +166,19 @@ class surface():
         self.residual(alpha)
 
         return alpha
+    
+    
+    # Krylov approximation for inverse Jacobian
+    def krylov(self, tolerance=1e-7):
+        print "\nKrylov method initialised..."
+        
+        x = root(self.f, self.f0().flatten(), self.acf, method='krylov', tol=tolerance)
+        
+        alpha = np.reshape(x['x'], [self.n,self.m])
+    
+        print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.")
+        return alpha
+    
 
     # Assemble the Jacobian for solution to non-linear system of equations
     def fjacobian(self,alpha,acf):
