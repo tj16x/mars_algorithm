@@ -173,7 +173,12 @@ class surface():
         print "\nKrylov method initialised...\n"
         
         x = root(self.f, self.f0().flatten(), self.acf, method='krylov', tol=tolerance, callback=self.plot_residual)
-        print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")
+        if x['success']:
+            print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")
+        else:
+            print("WARNING: The Krylov algorithm did NOT converge succesfully.\n")
+            print(x['message'])
+            return
         alpha = np.reshape(x['x'], [self.n,self.m])
     
         self.residual(alpha)
@@ -181,12 +186,14 @@ class surface():
         return alpha
     
     def plot_residual(self, solution, residual):
-        plt.scatter(self.iterations, residual[0])
+        plt.scatter(self.iterations, residual[0], marker='D', edgecolors='k', c='#FF33FF')
+        
+        plt.xlabel("Iteration")
+        plt.ylabel("Residual")
+        plt.title("Last Residual: "+ str(residual[0]))
+        
         plt.pause(0.05)
         self.iterations += 1
-        print(residual)
-        
-        
     
 
     # Assemble the Jacobian for solution to non-linear system of equations
