@@ -18,6 +18,7 @@ M     : number spanwise points on the height map
 dx    : sampling interval in streamwise direction
 dy    : sampling interval in spanwise direction
 cutoff: cutoff for correlation function
+phi   : rotation angle for anisotropic surfaces
 fout  : heightmap filename
 """
 
@@ -28,10 +29,11 @@ M=N
 dx=1
 dy=1
 cutoff=1e-5
+phi=0
 fout='heightmap.dat'
 
 # Create an instance of the surface class
-s= mars.surface(m,n,M,N,cutoff,dx,dy)
+s= mars.surface(n,m,N,M,cutoff,dx,dy,phi)
 
 time1 = time.clock()
 # Step 1: Specify ACF

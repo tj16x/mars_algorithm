@@ -21,7 +21,7 @@ class surface():
     " Surface class for MARS algorithm "
 
     # Constructor
-    def __init__(self, m=0, n=0, M=0, N=0, c=0, dx=0, dy=0):
+    def __init__(self, n=0, m=0, N=0, M=0, c=0, dx=0, dy=0, phi=0):
         """
         Input arguments:
             m (int)
@@ -38,6 +38,7 @@ class surface():
         self.c = c
         self.dx = dx
         self.dy = dy
+        self.phi = phi
         self.iterations = 0
 
     # Assemble autocorrelation coefficient function (ACF)
@@ -50,7 +51,22 @@ class surface():
         exp = lambda x,y,X,Y: np.exp(-2.3*np.sqrt((x/X)**2.0+(y/Y)**2.0 ))
         dx,dy = np.meshgrid(np.arange(0,self.M),np.arange(0,self.N))
         acf = np.zeros([self.N,self.M])
-        acf[:,:] = exp(dx,dy,lx,ly)
+        
+        # Evaluate and translate lines 25-30 from eval_rhs_nonlin here
+        for p in range(self.n):
+            for q in range(self.m):
+                
+                ca = np.cos(self.phi * np.pi/180.0)
+                sa = np.sin(self.phi * np.pi/180.0)
+                xp =  p*ca + q*sa
+                yp = -p*sa + q*ca
+                
+                acf[p,q] = exp(xp,yp,self.n,self.m)
+        
+        
+        #acf[:,:] = exp(dx,dy,lx,ly)
+
+        # Possibly up to here
 
         idx = lambda arr,vec: (np.abs(arr-vec)).argmin()+1
         self.n = idx(acf[:,0],self.c)
