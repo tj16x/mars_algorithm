@@ -8,9 +8,6 @@ import numpy as np
 
 # Test imports from hereon
 import time
-import scipy as sp
-from scipy.optimize import root
-import matplotlib.pyplot as plt
 
 """
 Input Variables:
@@ -24,7 +21,7 @@ cutoff: cutoff for correlation function
 fout  : heightmap filename
 """
 
-n=8
+n=12
 m=n
 N=128
 M=N
@@ -60,7 +57,6 @@ time6 = time.clock()
 # Step 5: Save the surface
 s.save(fout)
 
-plt.imshow(hmap, origin='lower')
 
 print("ACF time: " + str(time2-time1))
 print("F0 time: " + str(time3-time2))
