@@ -53,7 +53,7 @@ class surface():
         acf = np.zeros([self.N,self.M])
         
         # Evaluate and translate lines 25-30 from eval_rhs_nonlin here
-        for p in range(self.n):
+        '''for p in range(self.n):
             for q in range(self.m):
                 
                 ca = np.cos(self.phi * np.pi/180.0)
@@ -63,9 +63,8 @@ class surface():
                 
                 acf[p,q] = exp(xp,yp,self.n,self.m)
         
-        
-        #acf[:,:] = exp(dx,dy,lx,ly)
-
+        '''
+        acf[:,:] = exp(dx,dy,lx,ly)
         # Possibly up to here
 
         idx = lambda arr,vec: (np.abs(arr-vec)).argmin()+1
