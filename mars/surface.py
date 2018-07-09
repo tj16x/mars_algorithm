@@ -68,8 +68,10 @@ class surface():
         idx = lambda arr,vec: (np.abs(arr-vec)).argmin()+1
         self.n = idx(acf[:,0],self.c)
         self.m = idx(acf[0,:],self.c)
-
         self.rhs = acf[0:self.n,0:self.m]
+
+        plt.figure(1)
+        plt.contourf(acf)
 
         return self.rhs
 
@@ -201,6 +203,7 @@ class surface():
         return alpha
     
     def plot_residual(self, solution, residual):
+        plt.figure(0)
         plt.scatter(self.iterations, residual[0], marker='D', edgecolors='k', c='#FF33FF')
         
         plt.xlabel("Iteration")
