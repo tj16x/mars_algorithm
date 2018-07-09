@@ -52,20 +52,18 @@ class surface():
         dx,dy = np.meshgrid(np.arange(0,self.M),np.arange(0,self.N))
         acf = np.zeros([self.N,self.M])
         
-        # Evaluate and translate lines 25-30 from eval_rhs_nonlin here
-        '''for p in range(self.n):
-            for q in range(self.m):
+        # Evaluate the arbitrary direction of the function 
+        #  ->Equation 36 from Bakalos (2003)
+        for p in range(self.N):
+            for q in range(self.M):
                 
                 ca = np.cos(self.phi * np.pi/180.0)
                 sa = np.sin(self.phi * np.pi/180.0)
                 xp =  p*ca + q*sa
                 yp = -p*sa + q*ca
                 
-                acf[p,q] = exp(xp,yp,self.n,self.m)
-        
-        '''
-        acf[:,:] = exp(dx,dy,lx,ly)
-        # Possibly up to here
+                acf[p,q] = exp(xp,yp,lx,ly)
+
 
         idx = lambda arr,vec: (np.abs(arr-vec)).argmin()+1
         self.n = idx(acf[:,0],self.c)
@@ -187,7 +185,9 @@ class surface():
     def krylov(self, tolerance=1e-7):
         print "\nKrylov method initialised...\n"
         
-        x = root(self.f, self.f0().flatten(), self.acf, method='krylov', tol=tolerance, callback=self.plot_residual)
+        optionsList = {'xatol':1e-7} #, 'maxiter':100000
+
+        x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.plot_residual, options=optionsList)
         if x['success']:
             print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")
         else:
