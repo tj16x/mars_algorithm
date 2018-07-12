@@ -184,11 +184,11 @@ class surface():
         return alpha
     
     # Krylov approximation for inverse Jacobian
-    def krylov(self, tolerance=1e-7):
+    def krylov(self, tolerance=1e-7, method='gmres', maxiter=1000):
         print "\nKrylov method initialised...\n"
 
-        j_options   = {'method':'bicgstab'}
-        optionsList = {'xatol':1e-7, 'jac_options':j_options} #, 'maxiter':100000
+        j_options   = {'method':method}
+        optionsList = {'xatol':1e-7, 'jac_options':j_options, 'maxiter':maxiter}
 
         x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.plot_residual, options=optionsList)
         if x['success']:
