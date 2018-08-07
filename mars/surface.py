@@ -14,7 +14,9 @@
 # Import libraries
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import fsolve, root
+from scipy.optimize import root
+from scipy.stats import johnsonsu,johnsonsb
+from f_johnson_M import f_johnson_M
 
 # Surface class
 class surface():
@@ -274,6 +276,27 @@ class surface():
     
         return self.rand
 
+
+    # Generate Johnson random number matrix
+    def johnson_eta(self, skew_target, kurt_target):
+        
+        mean = 0.0
+        var  = 1.0
+        
+        j_inputs = f_johnson_M(mean, var, skew_target, kurt_target)
+        gamma = j_inputs['coef'][0]
+        delta = j_inputs['coef'][1]
+        xi    = j_inputs['coef'][2]
+        lmbd  = j_inputs['coef'][3]
+        
+        if (j_inputs['type'] == 'SU'):
+            self.rand = johnsonsu.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
+        else:
+            self.rand = johnsonsb.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
+
+        return self.rand
+    
+    
     # Generate the heightmap
     def heightmap(self,alpha,rand):
         " Generate heightmap via linear transformation "

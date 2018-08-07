@@ -19,18 +19,23 @@ dx    : sampling interval in streamwise direction
 dy    : sampling interval in spanwise direction
 cutoff: cutoff for correlation function
 phi   : rotation angle for anisotropic surfaces
+skew  : target skewness for the surface
+kurt  : target kurtosis for the surface
 fout  : heightmap filename
 """
 
-n=12
-m=n
+n=15
+m=15
 N=128
 M=N
 dx=1
 dy=1
 cutoff=1e-5
-phi=0
+phi=67
+skew=0.3
+kurt=3.5
 fout='heightmap.dat'
+
 
 # Create an instance of the surface class
 s= mars.surface(n,m,N,M,cutoff,dx,dy,phi)
@@ -45,11 +50,12 @@ guess= s.f0()
 
 time3 = time.clock()
 #alpha= s.ncgm(guess)
-alpha= s.krylov()
+alpha= s.krylov(method="lgmres")
 
 time4 = time.clock()
 # Step 3: Generate a random number matrix
 rand= s.eta()
+rand= s.johnson_eta(skew, kurt)
 
 time5 = time.clock()
 # Step 4: Generate the heightmap
@@ -58,7 +64,6 @@ hmap= s.heightmap(alpha,rand)
 time6 = time.clock()
 # Step 5: Save the surface
 s.save(fout)
-
 
 print("ACF time: " + str(time2-time1))
 print("F0 time: " + str(time3-time2))
