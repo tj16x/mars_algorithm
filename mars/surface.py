@@ -278,10 +278,7 @@ class surface():
 
 
     # Generate Johnson random number matrix
-    def johnson_eta(self, skew_target, kurt_target):
-        
-        mean = 0.0
-        var  = 1.0
+    def johnson_eta(self, skew_target, kurt_target, mean=0.0, var=1.0):
         
         j_inputs = f_johnson_M(mean, var, skew_target, kurt_target)
         gamma = j_inputs['coef'][0]
