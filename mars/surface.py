@@ -195,10 +195,13 @@ class surface():
     def krylov(self, tolerance=1e-7, method='gmres', maxiter=1000):
         print "\nKrylov method initialised...\n"
 
+        # j_options is used to pass options specific to the Krylov solver
+        # optionsList passes different arguments to the root function
         j_options   = {'method':method}
         optionsList = {'xatol':1e-7, 'jac_options':j_options, 'maxiter':maxiter}
 
         x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.plot_residual, options=optionsList)
+
         if x['success']:
             print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")
         else:
@@ -280,6 +283,8 @@ class surface():
     # Generate Johnson random number matrix
     def johnson_eta(self, skew_target, kurt_target, mean=0.0, var=1.0):
         
+        # Estimate the required inputs to the Johnson function to meet the
+        # target skewness and kurtosis
         j_inputs = f_johnson_M(mean, var, skew_target, kurt_target)
         gamma = j_inputs['coef'][0]
         delta = j_inputs['coef'][1]

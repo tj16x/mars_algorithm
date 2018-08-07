@@ -54,7 +54,7 @@ alpha= s.krylov(method="lgmres")
 
 time4 = time.clock()
 # Step 3: Generate a random number matrix
-rand= s.eta()
+#rand= s.eta()
 rand= s.johnson_eta(skew, kurt)
 
 time5 = time.clock()
