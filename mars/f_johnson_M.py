@@ -220,7 +220,7 @@ def sub_jnsn(xbar,sd,rb1,bb2):
         # Test for position relative to Lognormal line:
         x = half*b1 + one
         y = np.abs(rb1) * np.sqrt(quart*b1+one)
-        u = np.power((x+y), (one/three))
+        u = (x+y)** (one/three)
         w = u + one/u - one
         u = w*w*(three+w*(two+w)) - three
         if ((b2 < zero) or (fault)):
@@ -301,8 +301,9 @@ def sub_sufit(xbar,sd,rb1,b2):
             a   = eight*(wm1*(three+w*(seven+v))-z)
             b   = sixten*(wm1*(six+v)-b3)
             y   = (np.sqrt(a*a-two*b*(wm1*(three+w*(nine+w*(ten+v)))-two*w1*z))-a)/b
-            z   = np.power(y*wm1*(four*(w+two)*y+three*w1*w1), 2/(two*np.power((two*y+w1),3)))
+            z   = y*wm1*(four*(w+two)*y+three*w1*w1)**2/(two*(two*y+w1)**3)
             v   = w*w
+            print (z)
             w   = np.sqrt(one-two*(one5-b2+(b1*(b2-one5-v*(one+half*v)))/z))
             w   = np.sqrt(w-one)
             if (np.abs(b1-z) <= tol):
@@ -364,7 +365,7 @@ def sub_sbfit(xbar,sigma,rtb1,b2):
     e = b1 + one
     x = half*b1 + one
     y = np.abs(rb1)*np.sqrt(quart*b1+one)
-    u = np.power((x+y), (one/three))
+    u = (x+y)** (one/three)
     w = u + one/u - one
     f = w*w*(three+w*(two+w)) - three
     e = (b2-e)/(f-e)
@@ -381,7 +382,7 @@ def sub_sbfit(xbar,sigma,rtb1,b2):
     if (f < a18):
         d = a13*(f-one)
     else:
-        d = np.power((a9*f-a4)*(three-f), (-a5))
+        d = (a9*f-a4)*(three-f)** (-a5)
     
     # Get g as first estimate of gamma:
     g = zero
@@ -393,9 +394,9 @@ def sub_sbfit(xbar,sigma,rtb1,b2):
             else:
                 u = a1
                 y = a7
-            g = np.power(b1, (u*d+y)*(a14+d*(a15*d-a11)))
+            g = b1** (u*d+y)*(a14+d*(a15*d-a11))
         else:
-            g = np.power((np.power(a12*d, a17)+a8)*b1, a6)
+            g = (a12*d**a17+a8)*b1**a6;
             
     
     # -----Main iteration starts here:-----

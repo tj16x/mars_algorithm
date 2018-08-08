@@ -24,14 +24,14 @@ kurt  : target kurtosis for the surface
 fout  : heightmap filename
 """
 
-n=15
-m=15
+n=16
+m=n
 N=128
 M=N
 dx=1
 dy=1
 cutoff=1e-5
-phi=67
+phi=0
 skew=0.3
 kurt=3.5
 fout='heightmap.dat'
@@ -55,7 +55,10 @@ alpha= s.krylov(method="lgmres")
 time4 = time.clock()
 # Step 3: Generate a random number matrix
 #rand= s.eta()
-rand= s.johnson_eta(skew, kurt)
+rescaled_skew, rescaled_kurt = s.rescale(alpha, skew, kurt)
+if (not rescaled_skew) and (not rescaled_kurt):
+    exit ("Error: The program can't generate the surface because of the input Skew and Kurtosis.")
+rand= s.johnson_eta(rescaled_skew, rescaled_kurt)
 
 time5 = time.clock()
 # Step 4: Generate the heightmap

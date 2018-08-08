@@ -280,6 +280,33 @@ class surface():
         return self.rand
 
 
+    def rescale(self, solutions, skew, kurt):
+
+        # Equation 25 in Bakalos (2003)
+        theta=np.zeros(self.n*self.m)
+        for k in range(1, self.n+1):
+            for l in range(1, self.m+1):
+                i=(k-1)*self.m+l
+                theta[i-1]= solutions[k-1,l-1]
+
+        # Paragraph under Equation 25 in Bakalos (2003)
+        # suggests summing over a maxmimum of 30 coefficients
+        nsum=self.n*self.m
+
+        # Rescaling coeffient for Equation 23 in Bakalos (2003)
+        c1= np.sum(theta[:nsum]**3.0) / ( (np.sum(theta[:nsum]**2.0))**(3.0/2.0))
+        skew_rescaled= skew/c1
+
+        # Rescaling coeffient for Equation 24 in Bakalos (2003)
+        c2= np.sum(theta[:nsum]**4.0) / ( np.sum(theta[:nsum]**2.0)**2.0)
+        kurt_rescaled= ((kurt-3.0)/c2)+ 3.0
+
+        if ( kurt_rescaled-skew_rescaled**2.0-1.0 <= 0 ):
+            print('Error: Target skewness (Sk) and kurtosis (K) do not satisfy Sk - K^2 -1 > 0.')
+            return [0, 0]
+
+        return [skew_rescaled, kurt_rescaled]
+
     # Generate Johnson random number matrix
     def johnson_eta(self, skew_target, kurt_target, mean=0.0, var=1.0):
         
