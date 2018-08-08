@@ -303,7 +303,6 @@ def sub_sufit(xbar,sd,rb1,b2):
             y   = (np.sqrt(a*a-two*b*(wm1*(three+w*(nine+w*(ten+v)))-two*w1*z))-a)/b
             z   = y*wm1*(four*(w+two)*y+three*w1*w1)**2/(two*(two*y+w1)**3)
             v   = w*w
-            print (z)
             w   = np.sqrt(one-two*(one5-b2+(b1*(b2-one5-v*(one+half*v)))/z))
             w   = np.sqrt(w-one)
             if (np.abs(b1-z) <= tol):
