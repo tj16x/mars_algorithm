@@ -39,6 +39,7 @@ proc vTcl:project:info {} {
     set site_3_0 $base.lab41
     set site_3_0 $base.lab42
     set site_3_0 $base.lab46
+    set site_3_0 $base.tLa39
     namespace eval ::widgets_bindings {
         set tagslist _TopLevel
     }
@@ -68,10 +69,9 @@ proc vTclWindow.top37 {base} {
     # CREATING WIDGETS
     ###################
     vTcl::widgets::core::toplevel::createCmd $top -class Toplevel \
-        -menu {} -background {#d9d9d9} -highlightbackground {#d9d9d9} \
-        -highlightcolor black 
+        -background {#d9d9d9} -highlightcolor black 
     wm focusmodel $top passive
-    wm geometry $top 320x320+521+216
+    wm geometry $top 490x320+831+270
     update
     # set in toplevel.wgt.
     global vTcl
@@ -86,28 +86,17 @@ proc vTclWindow.top37 {base} {
     vTcl:DefineAlias "$top" "Toplevel1" vTcl:Toplevel:WidgetProc "" 1
     labelframe $top.lab41 \
         -foreground black -text {Surface parameters} -background {#d9d9d9} \
-        -height 125 -highlightbackground {#d9d9d9} -highlightcolor black \
-        -width 325 
+        -height 125 -highlightcolor black -width 260 
     vTcl:DefineAlias "$top.lab41" "Labelframe1" vTcl:WidgetProc "Toplevel1" 1
     set site_3_0 $top.lab41
-    ttk::entry $site_3_0.tEn39 \
-        -state readonly -foreground {} -background {} -takefocus {} \
-        -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn39" "TEntry1" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa40 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text {Number of attempts:} 
     vTcl:DefineAlias "$site_3_0.tLa40" "TLabel1" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn43 \
-        -foreground {} -background {} -takefocus {} -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn43" "TEntry2" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa44 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text {Surface size N x M:} 
     vTcl:DefineAlias "$site_3_0.tLa44" "TLabel2" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn45 \
-        -foreground {} -background {} -takefocus {} -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn45" "TEntry3" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa46 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text x 
@@ -120,56 +109,75 @@ proc vTclWindow.top37 {base} {
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text {Spacing dx, dy:} 
     vTcl:DefineAlias "$site_3_0.tLa52" "TLabel6" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn54 \
-        -foreground {} -background {} -takefocus {} -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn54" "TEntry4" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn55 \
-        -foreground {} -background {} -takefocus {} -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn55" "TEntry5" vTcl:WidgetProc "Toplevel1" 1
-    place $site_3_0.tEn39 \
-        -in $site_3_0 -x 131 -y 21 -width 75 -relwidth 0 -height 21 \
-        -relheight 0 -anchor nw -bordermode ignore 
+    spinbox $site_3_0.spi42 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 1.0 -highlightbackground black -highlightcolor black \
+        -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -to 1000.0 
+    vTcl:DefineAlias "$site_3_0.spi42" "Spinbox1" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi43 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 1.0 -highlightbackground black -highlightcolor black \
+        -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -to 1000.0 
+    vTcl:DefineAlias "$site_3_0.spi43" "Spinbox2" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi44 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 1.0 -highlightbackground black -highlightcolor black \
+        -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -to 1000.0 
+    vTcl:DefineAlias "$site_3_0.spi44" "Spinbox3" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi45 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 1.0 -highlightbackground black -highlightcolor black \
+        -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -to 1000.0 
+    vTcl:DefineAlias "$site_3_0.spi45" "Spinbox4" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi46 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 1.0 -highlightbackground black -highlightcolor black \
+        -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -state disabled -to 100.0 
+    vTcl:DefineAlias "$site_3_0.spi46" "Spinbox5" vTcl:WidgetProc "Toplevel1" 1
     place $site_3_0.tLa40 \
-        -in $site_3_0 -x 10 -y 21 -width 114 -relwidth 0 -height 19 \
-        -relheight 0 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn43 \
-        -in $site_3_0 -x 130 -y 52 -width 26 -relwidth 0 -height 21 \
+        -in $site_3_0 -x 10 -y 20 -width 134 -relwidth 0 -height 19 \
         -relheight 0 -anchor nw -bordermode ignore 
     place $site_3_0.tLa44 \
-        -in $site_3_0 -x 10 -y 53 -width 106 -relwidth 0 -height 19 \
-        -relheight 0 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn45 \
-        -in $site_3_0 -x 180 -y 52 -width 26 -relwidth 0 -height 21 \
+        -in $site_3_0 -x 10 -y 50 -width 136 -relwidth 0 -height 19 \
         -relheight 0 -anchor nw -bordermode ignore 
     place $site_3_0.tLa46 \
-        -in $site_3_0 -x 163 -y 52 -width 13 -height 19 -anchor nw \
+        -in $site_3_0 -x 192 -y 50 -width 13 -height 19 -anchor nw \
         -bordermode ignore 
     place $site_3_0.tLa47 \
-        -in $site_3_0 -x 164 -y 83 -width 9 -height 19 -anchor nw \
+        -in $site_3_0 -x 192 -y 80 -width 9 -height 19 -anchor nw \
         -bordermode ignore 
     place $site_3_0.tLa52 \
-        -in $site_3_0 -x 10 -y 85 -width 107 -relwidth 0 -height 19 \
+        -in $site_3_0 -x 10 -y 80 -width 107 -relwidth 0 -height 19 \
         -relheight 0 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn54 \
-        -in $site_3_0 -x 130 -y 84 -width 26 -relwidth 0 -height 21 \
+    place $site_3_0.spi42 \
+        -in $site_3_0 -x 151 -y 50 -width 36 -relwidth 0 -height 21 \
         -relheight 0 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn55 \
-        -in $site_3_0 -x 180 -y 84 -width 26 -relwidth 0 -height 21 \
+    place $site_3_0.spi43 \
+        -in $site_3_0 -x 210 -y 50 -width 36 -relwidth 0 -height 21 \
+        -relheight 0 -anchor nw -bordermode ignore 
+    place $site_3_0.spi44 \
+        -in $site_3_0 -x 151 -y 80 -width 36 -height 21 -anchor nw \
+        -bordermode ignore 
+    place $site_3_0.spi45 \
+        -in $site_3_0 -x 210 -y 80 -width 36 -height 21 -anchor nw \
+        -bordermode ignore 
+    place $site_3_0.spi46 \
+        -in $site_3_0 -x 151 -y 20 -width 95 -relwidth 0 -height 21 \
         -relheight 0 -anchor nw -bordermode ignore 
     labelframe $top.lab42 \
         -foreground black -text {Height distribution} -background {#d9d9d9} \
-        -height 135 -highlightbackground {#d9d9d9} -highlightcolor black \
-        -width 160 
+        -height 135 -highlightcolor black -width 240 
     vTcl:DefineAlias "$top.lab42" "Labelframe2" vTcl:WidgetProc "Toplevel1" 1
     set site_3_0 $top.lab42
     ttk::label $site_3_0.tLa39 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text {Rms height:} 
     vTcl:DefineAlias "$site_3_0.tLa39" "TLabel5" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn40 \
-        -state readonly -foreground {} -background {} -takefocus {} \
-        -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn40" "TEntry6" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa41 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text Skewness: 
@@ -178,33 +186,47 @@ proc vTclWindow.top37 {base} {
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text Kurtosis: 
     vTcl:DefineAlias "$site_3_0.tLa42" "TLabel8" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn43 \
-        -foreground {} -background {} -takefocus {} -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn43" "TEntry7" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn44 \
-        -foreground {} -background {} -takefocus {} -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn44" "TEntry8" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi47 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 1.0 -highlightbackground black -highlightcolor black \
+        -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -state disabled -to 1000.0 
+    vTcl:DefineAlias "$site_3_0.spi47" "Spinbox6" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi48 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 0.0 -highlightbackground black -highlightcolor black \
+        -increment 0.1 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -to 100.0 
+    vTcl:DefineAlias "$site_3_0.spi48" "Spinbox7" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi49 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 0.0 -highlightbackground black -highlightcolor black \
+        -increment 0.1 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -to 100.0 
+    vTcl:DefineAlias "$site_3_0.spi49" "Spinbox8" vTcl:WidgetProc "Toplevel1" 1
     place $site_3_0.tLa39 \
         -in $site_3_0 -x 10 -y 30 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn40 \
-        -in $site_3_0 -x 90 -y 30 -width 45 -relwidth 0 -height 21 \
-        -relheight 0 -anchor nw -bordermode ignore 
     place $site_3_0.tLa41 \
         -in $site_3_0 -x 10 -y 60 -anchor nw -bordermode ignore 
     place $site_3_0.tLa42 \
         -in $site_3_0 -x 10 -y 90 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn43 \
-        -in $site_3_0 -x 90 -y 60 -width 45 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn44 \
-        -in $site_3_0 -x 90 -y 90 -width 45 -anchor nw -bordermode ignore 
+    place $site_3_0.spi47 \
+        -in $site_3_0 -x 110 -y 28 -width 95 -height 20 -anchor nw \
+        -bordermode ignore 
+    place $site_3_0.spi48 \
+        -in $site_3_0 -x 110 -y 60 -width 95 -height 20 -anchor nw \
+        -bordermode ignore 
+    place $site_3_0.spi49 \
+        -in $site_3_0 -x 110 -y 90 -width 95 -height 20 -anchor nw \
+        -bordermode ignore 
     labelframe $top.lab46 \
         -foreground black -text {Correlation function} -background {#d9d9d9} \
-        -height 135 -width 160 
+        -height 135 -highlightcolor black -width 240 
     vTcl:DefineAlias "$top.lab46" "Labelframe4" vTcl:WidgetProc "Toplevel1" 1
     set site_3_0 $top.lab46
     ttk::label $site_3_0.tLa47 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
-        -relief flat -text Type 
+        -relief flat -text Type: 
     vTcl:DefineAlias "$site_3_0.tLa47" "TLabel9" vTcl:WidgetProc "Toplevel1" 1
     ttk::combobox $site_3_0.tCo48 \
         -textvariable combobox -foreground {} -background {} -takefocus {} \
@@ -214,44 +236,53 @@ proc vTclWindow.top37 {base} {
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text {n x m:} 
     vTcl:DefineAlias "$site_3_0.tLa49" "TLabel10" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn51 \
-        -foreground {} -background {} -takefocus {} -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn51" "TEntry9" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa52 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text x 
     vTcl:DefineAlias "$site_3_0.tLa52" "TLabel11" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn55 \
-        -foreground {} -background {} -takefocus {} -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn55" "TEntry10" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa56 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text Alpha: 
     vTcl:DefineAlias "$site_3_0.tLa56" "TLabel12" vTcl:WidgetProc "Toplevel1" 1
-    ttk::entry $site_3_0.tEn57 \
-        -foreground {} -background {} -takefocus {} -cursor arrow 
-    vTcl:DefineAlias "$site_3_0.tEn57" "TEntry11" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi50 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 1.0 -highlightbackground black -highlightcolor black \
+        -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -to 1000.0 
+    vTcl:DefineAlias "$site_3_0.spi50" "Spinbox9" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi51 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 1.0 -highlightbackground black -highlightcolor black \
+        -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -to 1000.0 
+    vTcl:DefineAlias "$site_3_0.spi51" "Spinbox10" vTcl:WidgetProc "Toplevel1" 1
+    spinbox $site_3_0.spi52 \
+        -activebackground {#f9f9f9} -background white -foreground black \
+        -from 0.0 -highlightbackground black -highlightcolor black \
+        -increment 0.5 -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -to 100.0 
+    vTcl:DefineAlias "$site_3_0.spi52" "Spinbox11" vTcl:WidgetProc "Toplevel1" 1
     place $site_3_0.tLa47 \
         -in $site_3_0 -x 10 -y 30 -anchor nw -bordermode ignore 
     place $site_3_0.tCo48 \
-        -in $site_3_0 -x 70 -y 30 -width 65 -relwidth 0 -height 21 \
+        -in $site_3_0 -x 90 -y 30 -width 125 -relwidth 0 -height 21 \
         -relheight 0 -anchor nw -bordermode ignore 
     place $site_3_0.tLa49 \
         -in $site_3_0 -x 10 -y 60 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn51 \
-        -in $site_3_0 -x 70 -y 60 -width 25 -relwidth 0 -height 21 \
-        -relheight 0 -anchor nw -bordermode ignore 
     place $site_3_0.tLa52 \
-        -in $site_3_0 -x 100 -y 60 -width 16 -relwidth 0 -height 19 \
+        -in $site_3_0 -x 148 -y 60 -width 16 -relwidth 0 -height 19 \
         -relheight 0 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn55 \
-        -in $site_3_0 -x 110 -y 60 -width 25 -height 21 -anchor nw \
-        -bordermode ignore 
     place $site_3_0.tLa56 \
         -in $site_3_0 -x 10 -y 90 -anchor nw -bordermode ignore 
-    place $site_3_0.tEn57 \
-        -in $site_3_0 -x 70 -y 90 -width 65 -relwidth 0 -height 21 \
-        -relheight 0 -anchor nw -bordermode ignore 
+    place $site_3_0.spi50 \
+        -in $site_3_0 -x 90 -y 60 -width 45 -height 21 -anchor nw \
+        -bordermode ignore 
+    place $site_3_0.spi51 \
+        -in $site_3_0 -x 170 -y 60 -width 45 -height 21 -anchor nw \
+        -bordermode ignore 
+    place $site_3_0.spi52 \
+        -in $site_3_0 -x 90 -y 90 -width 125 -height 21 -anchor nw \
+        -bordermode ignore 
     ttk::style configure TButton -background #d9d9d9
     ttk::style configure TButton -foreground #000000
     ttk::style configure TButton -font TkDefaultFont
@@ -262,35 +293,66 @@ proc vTclWindow.top37 {base} {
     ttk::style configure TButton -foreground #000000
     ttk::style configure TButton -font TkDefaultFont
     ttk::button $top.tBu63 \
-        -takefocus {} -text Diagnostics 
+        -takefocus {} -text Diagnostics -state disabled 
     vTcl:DefineAlias "$top.tBu63" "TButton2" vTcl:WidgetProc "Toplevel1" 1
     ttk::style configure TButton -background #d9d9d9
     ttk::style configure TButton -foreground #000000
     ttk::style configure TButton -font TkDefaultFont
     ttk::button $top.tBu64 \
-        -takefocus {} -text {Save as} 
+        -takefocus {} -text {Save as} -state disabled 
     vTcl:DefineAlias "$top.tBu64" "TButton3" vTcl:WidgetProc "Toplevel1" 1
+    ttk::style configure TButton -background #d9d9d9
+    ttk::style configure TButton -foreground #000000
+    ttk::style configure TButton -font TkDefaultFont
+    ttk::button $top.tBu38 \
+        -takefocus {} -text {Advanced settings} 
+    vTcl:DefineAlias "$top.tBu38" "TButton4" vTcl:WidgetProc "Toplevel1" 1
+    ttk::style configure TLabelframe.Label -background #d9d9d9
+    ttk::style configure TLabelframe.Label -foreground #000000
+    ttk::style configure TLabelframe.Label -font TkDefaultFont
+    ttk::style configure TLabelframe -background #d9d9d9
+    ttk::labelframe $top.tLa39 \
+        -text {Program output} -width 220 -height 125 
+    vTcl:DefineAlias "$top.tLa39" "TLabelframe1" vTcl:WidgetProc "Toplevel1" 1
+    set site_3_0 $top.tLa39
+    text $site_3_0.tex41 \
+        -background white -cursor arrow -font TkTextFont -foreground black \
+        -height 90 -highlightcolor black -insertbackground black \
+        -selectbackground {#c4c4c4} -selectforeground black -state disabled \
+        -width 200 -wrap word 
+    .top37.tLa39.tex41 configure -font TkTextFont
+    .top37.tLa39.tex41 insert end text
+    vTcl:DefineAlias "$site_3_0.tex41" "Text1" vTcl:WidgetProc "Toplevel1" 1
+    place $site_3_0.tex41 \
+        -in $site_3_0 -x 10 -y 20 -width 200 -relwidth 0 -height 90 \
+        -relheight 0 -anchor nw -bordermode ignore 
     ###################
     # SETTING GEOMETRY
     ###################
     place $top.lab41 \
-        -in $top -x 0 -y 0 -width 320 -relwidth 0 -height 125 -relheight 0 \
+        -in $top -x 0 -y 0 -width 260 -relwidth 0 -height 125 -relheight 0 \
         -anchor nw -bordermode ignore 
     place $top.lab42 \
-        -in $top -x 0 -y 130 -width 160 -relwidth 0 -height 135 -relheight 0 \
+        -in $top -x 0 -y 130 -width 240 -relwidth 0 -height 135 -relheight 0 \
         -anchor nw -bordermode ignore 
     place $top.lab46 \
-        -in $top -x 160 -y 130 -width 160 -relwidth 0 -height 135 \
+        -in $top -x 250 -y 130 -width 240 -relwidth 0 -height 135 \
         -relheight 0 -anchor nw -bordermode ignore 
     place $top.tBu62 \
-        -in $top -x 10 -y 280 -width 113 -relwidth 0 -height 25 -relheight 0 \
+        -in $top -x 10 -y 280 -width 133 -relwidth 0 -height 25 -relheight 0 \
         -anchor nw -bordermode ignore 
     place $top.tBu63 \
-        -in $top -x 131 -y 280 -width 76 -height 25 -anchor nw \
-        -bordermode ignore 
+        -in $top -x 295 -y 280 -width 96 -relwidth 0 -height 25 -relheight 0 \
+        -anchor nw -bordermode ignore 
     place $top.tBu64 \
-        -in $top -x 222 -y 280 -width 76 -height 25 -anchor nw \
+        -in $top -x 400 -y 280 -width 76 -height 25 -anchor nw \
         -bordermode ignore 
+    place $top.tBu38 \
+        -in $top -x 154 -y 280 -width 130 -height 25 -anchor nw \
+        -bordermode ignore 
+    place $top.tLa39 \
+        -in $top -x 270 -y 0 -width 220 -relwidth 0 -height 125 -relheight 0 \
+        -anchor nw -bordermode ignore 
 
     vTcl:FireEvent $base <<Ready>>
 }
