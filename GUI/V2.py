@@ -105,7 +105,7 @@ class MARS:
         self.TLabel3.configure(foreground="#000000")
         self.TLabel3.configure(font="TkDefaultFont")
         self.TLabel3.configure(relief=FLAT)
-        self.TLabel3.configure(text='''x''')
+        self.TLabel3.configure(text="x")
 
         self.TLabel4 = ttk.Label(self.Labelframe1)
         self.TLabel4.place(relx=0.73, rely=0.7, height=19, width=9, y=-10, h=5)
@@ -113,7 +113,7 @@ class MARS:
         self.TLabel4.configure(foreground="#000000")
         self.TLabel4.configure(font="TkDefaultFont")
         self.TLabel4.configure(relief=FLAT)
-        self.TLabel4.configure(text=''',''')
+        self.TLabel4.configure(text=",")
 
         self.TLabel6 = ttk.Label(self.Labelframe1)
         self.TLabel6.place(relx=0.04, rely=0.7, height=19, width=107, y=-10, h=5)
