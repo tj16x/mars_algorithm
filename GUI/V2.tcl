@@ -113,31 +113,32 @@ proc vTclWindow.top37 {base} {
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -to 1000.0 
+        -selectforeground black -textvariable N -to 1000.0 -values {{} {}} 
     vTcl:DefineAlias "$site_3_0.spi42" "Spinbox1" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi43 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -to 1000.0 
+        -selectforeground black -textvariable M -to 1000.0 -values {{} {}} 
     vTcl:DefineAlias "$site_3_0.spi43" "Spinbox2" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi44 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -to 1000.0 
+        -selectforeground black -textvariable dx -to 1000.0 -values {{} {}} 
     vTcl:DefineAlias "$site_3_0.spi44" "Spinbox3" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi45 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -to 1000.0 
+        -selectforeground black -textvariable dy -to 1000.0 
     vTcl:DefineAlias "$site_3_0.spi45" "Spinbox4" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi46 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -state disabled -to 100.0 
+        -selectforeground black -state disabled -textvariable attempts \
+        -to 100.0 
     vTcl:DefineAlias "$site_3_0.spi46" "Spinbox5" vTcl:WidgetProc "Toplevel1" 1
     place $site_3_0.tLa40 \
         -in $site_3_0 -x 10 -y 20 -width 134 -relwidth 0 -height 19 \
@@ -190,19 +191,20 @@ proc vTclWindow.top37 {base} {
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -state disabled -to 1000.0 
+        -selectforeground black -state disabled -textvariable rmsheight \
+        -to 1000.0 
     vTcl:DefineAlias "$site_3_0.spi47" "Spinbox6" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi48 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 0.0 -highlightbackground black -highlightcolor black \
         -increment 0.1 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -to 100.0 
+        -selectforeground black -textvariable skewness -to 100.0 
     vTcl:DefineAlias "$site_3_0.spi48" "Spinbox7" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi49 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 0.0 -highlightbackground black -highlightcolor black \
         -increment 0.1 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -to 100.0 
+        -selectforeground black -textvariable kurtosis -to 100.0 
     vTcl:DefineAlias "$site_3_0.spi49" "Spinbox8" vTcl:WidgetProc "Toplevel1" 1
     place $site_3_0.tLa39 \
         -in $site_3_0 -x 10 -y 30 -anchor nw -bordermode ignore 
@@ -229,8 +231,8 @@ proc vTclWindow.top37 {base} {
         -relief flat -text Type: 
     vTcl:DefineAlias "$site_3_0.tLa47" "TLabel9" vTcl:WidgetProc "Toplevel1" 1
     ttk::combobox $site_3_0.tCo48 \
-        -textvariable combobox -foreground {} -background {} -takefocus {} \
-        -cursor arrow 
+        -values {{"Exponential"}} -textvariable acf_type -foreground {} \
+        -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tCo48" "TCombobox1" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa49 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
@@ -248,19 +250,19 @@ proc vTclWindow.top37 {base} {
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -to 1000.0 
+        -selectforeground black -textvariable n -to 1000.0 
     vTcl:DefineAlias "$site_3_0.spi50" "Spinbox9" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi51 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -to 1000.0 
+        -selectforeground black -textvariable m -to 1000.0 
     vTcl:DefineAlias "$site_3_0.spi51" "Spinbox10" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi52 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 0.0 -highlightbackground black -highlightcolor black \
         -increment 0.5 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -to 100.0 
+        -selectforeground black -textvariable alpha -to 360.0 
     vTcl:DefineAlias "$site_3_0.spi52" "Spinbox11" vTcl:WidgetProc "Toplevel1" 1
     place $site_3_0.tLa47 \
         -in $site_3_0 -x 10 -y 30 -anchor nw -bordermode ignore 
