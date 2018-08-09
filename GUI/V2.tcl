@@ -92,21 +92,21 @@ proc vTclWindow.top37 {base} {
     set site_3_0 $top.lab41
     ttk::entry $site_3_0.tEn39 \
         -state readonly -foreground {} -background {} -takefocus {} \
-        -cursor ibeam 
+        -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn39" "TEntry1" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa40 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text {Number of attempts:} 
     vTcl:DefineAlias "$site_3_0.tLa40" "TLabel1" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn43 \
-        -foreground {} -background {} -takefocus {} -cursor ibeam 
+        -foreground {} -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn43" "TEntry2" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa44 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text {Surface size N x M:} 
     vTcl:DefineAlias "$site_3_0.tLa44" "TLabel2" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn45 \
-        -foreground {} -background {} -takefocus {} -cursor ibeam 
+        -foreground {} -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn45" "TEntry3" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa46 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
@@ -121,10 +121,10 @@ proc vTclWindow.top37 {base} {
         -relief flat -text {Spacing dx, dy:} 
     vTcl:DefineAlias "$site_3_0.tLa52" "TLabel6" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn54 \
-        -foreground {} -background {} -takefocus {} -cursor ibeam 
+        -foreground {} -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn54" "TEntry4" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn55 \
-        -foreground {} -background {} -takefocus {} -cursor ibeam 
+        -foreground {} -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn55" "TEntry5" vTcl:WidgetProc "Toplevel1" 1
     place $site_3_0.tEn39 \
         -in $site_3_0 -x 131 -y 21 -width 75 -relwidth 0 -height 21 \
@@ -168,7 +168,7 @@ proc vTclWindow.top37 {base} {
     vTcl:DefineAlias "$site_3_0.tLa39" "TLabel5" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn40 \
         -state readonly -foreground {} -background {} -takefocus {} \
-        -cursor ibeam 
+        -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn40" "TEntry6" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa41 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
@@ -179,10 +179,10 @@ proc vTclWindow.top37 {base} {
         -relief flat -text Kurtosis: 
     vTcl:DefineAlias "$site_3_0.tLa42" "TLabel8" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn43 \
-        -foreground {} -background {} -takefocus {} -cursor ibeam 
+        -foreground {} -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn43" "TEntry7" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn44 \
-        -foreground {} -background {} -takefocus {} -cursor ibeam 
+        -foreground {} -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn44" "TEntry8" vTcl:WidgetProc "Toplevel1" 1
     place $site_3_0.tLa39 \
         -in $site_3_0 -x 10 -y 30 -anchor nw -bordermode ignore 
@@ -207,28 +207,29 @@ proc vTclWindow.top37 {base} {
         -relief flat -text Type 
     vTcl:DefineAlias "$site_3_0.tLa47" "TLabel9" vTcl:WidgetProc "Toplevel1" 1
     ttk::combobox $site_3_0.tCo48 \
-        -textvariable combobox -foreground {} -background {} -takefocus {} 
+        -textvariable combobox -foreground {} -background {} -takefocus {} \
+        -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tCo48" "TCombobox1" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa49 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text {n x m:} 
     vTcl:DefineAlias "$site_3_0.tLa49" "TLabel10" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn51 \
-        -foreground {} -background {} -takefocus {} -cursor ibeam 
+        -foreground {} -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn51" "TEntry9" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa52 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text x 
     vTcl:DefineAlias "$site_3_0.tLa52" "TLabel11" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn55 \
-        -foreground {} -background {} -takefocus {} -cursor ibeam 
+        -foreground {} -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn55" "TEntry10" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $site_3_0.tLa56 \
         -background {#d9d9d9} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text Alpha: 
     vTcl:DefineAlias "$site_3_0.tLa56" "TLabel12" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $site_3_0.tEn57 \
-        -foreground {} -background {} -takefocus {} -cursor ibeam 
+        -foreground {} -background {} -takefocus {} -cursor arrow 
     vTcl:DefineAlias "$site_3_0.tEn57" "TEntry11" vTcl:WidgetProc "Toplevel1" 1
     place $site_3_0.tLa47 \
         -in $site_3_0 -x 10 -y 30 -anchor nw -bordermode ignore 
