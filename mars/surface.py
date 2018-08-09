@@ -302,8 +302,8 @@ class surface():
         kurt_rescaled= ((kurt-3.0)/c2)+ 3.0
 
         if ( kurt_rescaled-skew_rescaled**2.0-1.0 <= 0 ):
-            print('Error: Target skewness (Sk) and kurtosis (K) do not satisfy Sk - K^2 -1 > 0.')
-            return [0, 0]
+            print('Error: Target skewness (Sk) and kurtosis (K) do not satisfy Sk - K^2 -1 > 0.\n')
+            return [np.nan, np.nan]
 
         return [skew_rescaled, kurt_rescaled]
 
