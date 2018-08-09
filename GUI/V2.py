@@ -90,7 +90,7 @@ class MARS:
         self.TEntry1.configure(state=READONLY)
         self.TEntry1.configure(width=76)
         self.TEntry1.configure(takefocus="")
-        self.TEntry1.configure(cursor="ibeam")
+        self.TEntry1.configure(cursor="arrow")
 
         self.TLabel1 = ttk.Label(self.Labelframe1)
         self.TLabel1.place(relx=0.03, rely=0.19, height=19, width=114, y=-12
@@ -107,7 +107,7 @@ class MARS:
                 , y=-12, h=6)
         self.TEntry2.configure(width=26)
         self.TEntry2.configure(takefocus="")
-        self.TEntry2.configure(cursor="ibeam")
+        self.TEntry2.configure(cursor="arrow")
 
         self.TLabel2 = ttk.Label(self.Labelframe1)
         self.TLabel2.place(relx=0.03, rely=0.47, height=19, width=106, y=-12
@@ -124,7 +124,7 @@ class MARS:
                 , y=-12, h=6)
         self.TEntry3.configure(width=26)
         self.TEntry3.configure(takefocus="")
-        self.TEntry3.configure(cursor="ibeam")
+        self.TEntry3.configure(cursor="arrow")
 
         self.TLabel3 = ttk.Label(self.Labelframe1)
         self.TLabel3.place(relx=0.5, rely=0.46, height=19, width=13, y=-12, h=6)
@@ -157,14 +157,14 @@ class MARS:
                 , y=-12, h=6)
         self.TEntry4.configure(width=26)
         self.TEntry4.configure(takefocus="")
-        self.TEntry4.configure(cursor="ibeam")
+        self.TEntry4.configure(cursor="arrow")
 
         self.TEntry5 = ttk.Entry(self.Labelframe1)
         self.TEntry5.place(relx=0.56, rely=0.74, relheight=0.17, relwidth=0.08
                 , y=-12, h=6)
         self.TEntry5.configure(width=26)
         self.TEntry5.configure(takefocus="")
-        self.TEntry5.configure(cursor="ibeam")
+        self.TEntry5.configure(cursor="arrow")
 
         self.Labelframe2 = LabelFrame(top)
         self.Labelframe2.place(relx=0.0, rely=0.41, relheight=0.42, relwidth=0.5)
@@ -193,7 +193,7 @@ class MARS:
         self.TEntry6.configure(state=READONLY)
         self.TEntry6.configure(width=46)
         self.TEntry6.configure(takefocus="")
-        self.TEntry6.configure(cursor="ibeam")
+        self.TEntry6.configure(cursor="arrow")
 
         self.TLabel7 = ttk.Label(self.Labelframe2)
         self.TLabel7.place(relx=0.06, rely=0.49, height=19, width=57, y=-12, h=6)
@@ -217,13 +217,13 @@ class MARS:
         self.TEntry7.place(relx=0.56, rely=0.49, relheight=0.16, relwidth=0.28
                 , y=-12, h=6)
         self.TEntry7.configure(takefocus="")
-        self.TEntry7.configure(cursor="ibeam")
+        self.TEntry7.configure(cursor="arrow")
 
         self.TEntry8 = ttk.Entry(self.Labelframe2)
         self.TEntry8.place(relx=0.56, rely=0.73, relheight=0.16, relwidth=0.28
                 , y=-12, h=6)
         self.TEntry8.configure(takefocus="")
-        self.TEntry8.configure(cursor="ibeam")
+        self.TEntry8.configure(cursor="arrow")
 
         self.Labelframe4 = LabelFrame(top)
         self.Labelframe4.place(relx=0.5, rely=0.41, relheight=0.42, relwidth=0.5)
@@ -264,7 +264,7 @@ class MARS:
                 , y=-12, h=6)
         self.TEntry9.configure(width=25)
         self.TEntry9.configure(takefocus="")
-        self.TEntry9.configure(cursor="ibeam")
+        self.TEntry9.configure(cursor="arrow")
 
         self.TLabel11 = ttk.Label(self.Labelframe4)
         self.TLabel11.place(relx=0.63, rely=0.49, height=19, width=16, y=-12
@@ -280,7 +280,7 @@ class MARS:
         self.TEntry10.place(relx=0.69, rely=0.49, relheight=0.16, relwidth=0.16
                 , y=-12, h=6)
         self.TEntry10.configure(takefocus="")
-        self.TEntry10.configure(cursor="ibeam")
+        self.TEntry10.configure(cursor="arrow")
 
         self.TLabel12 = ttk.Label(self.Labelframe4)
         self.TLabel12.place(relx=0.06, rely=0.73, height=19, width=38, y=-12
@@ -296,7 +296,7 @@ class MARS:
                 , y=-12, h=6)
         self.TEntry11.configure(width=56)
         self.TEntry11.configure(takefocus="")
-        self.TEntry11.configure(cursor="ibeam")
+        self.TEntry11.configure(cursor="arrow")
 
         self.TButton1 = ttk.Button(top)
         self.TButton1.place(relx=0.03, rely=0.88, height=25, width=113)
