@@ -39,7 +39,7 @@ proc vTcl:project:info {} {
     set site_3_0 $base.lab41
     set site_3_0 $base.lab42
     set site_3_0 $base.lab46
-    set site_3_0 $base.tLa39
+    set site_3_0 $base.lab53
     namespace eval ::widgets_bindings {
         set tagslist _TopLevel
     }
@@ -71,7 +71,7 @@ proc vTclWindow.top37 {base} {
     vTcl::widgets::core::toplevel::createCmd $top -class Toplevel \
         -background {#d9d9d9} -highlightcolor black 
     wm focusmodel $top passive
-    wm geometry $top 490x320+831+270
+    wm geometry $top 490x320+830+270
     update
     # set in toplevel.wgt.
     global vTcl
@@ -113,19 +113,19 @@ proc vTclWindow.top37 {base} {
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -textvariable N -to 1000.0 -values {{} {}} 
+        -selectforeground black -textvariable N -to 1000.0 
     vTcl:DefineAlias "$site_3_0.spi42" "Spinbox1" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi43 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -textvariable M -to 1000.0 -values {{} {}} 
+        -selectforeground black -textvariable M -to 1000.0 
     vTcl:DefineAlias "$site_3_0.spi43" "Spinbox2" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi44 \
         -activebackground {#f9f9f9} -background white -foreground black \
         -from 1.0 -highlightbackground black -highlightcolor black \
         -increment 1.0 -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black -textvariable dx -to 1000.0 -values {{} {}} 
+        -selectforeground black -textvariable dx -to 1000.0 
     vTcl:DefineAlias "$site_3_0.spi44" "Spinbox3" vTcl:WidgetProc "Toplevel1" 1
     spinbox $site_3_0.spi45 \
         -activebackground {#f9f9f9} -background white -foreground black \
@@ -309,24 +309,21 @@ proc vTclWindow.top37 {base} {
     ttk::button $top.tBu38 \
         -takefocus {} -text {Advanced settings} 
     vTcl:DefineAlias "$top.tBu38" "TButton4" vTcl:WidgetProc "Toplevel1" 1
-    ttk::style configure TLabelframe.Label -background #d9d9d9
-    ttk::style configure TLabelframe.Label -foreground #000000
-    ttk::style configure TLabelframe.Label -font TkDefaultFont
-    ttk::style configure TLabelframe -background #d9d9d9
-    ttk::labelframe $top.tLa39 \
-        -text {Program output} -width 220 -height 125 
-    vTcl:DefineAlias "$top.tLa39" "TLabelframe1" vTcl:WidgetProc "Toplevel1" 1
-    set site_3_0 $top.tLa39
-    text $site_3_0.tex41 \
-        -background white -cursor arrow -font TkTextFont -foreground black \
-        -height 90 -highlightcolor black -insertbackground black \
+    labelframe $top.lab53 \
+        -foreground black -text {Program output} -background {#d9d9d9} \
+        -height 125 -width 220 
+    vTcl:DefineAlias "$top.lab53" "Labelframe3" vTcl:WidgetProc "Toplevel1" 1
+    set site_3_0 $top.lab53
+    text $site_3_0.tex54 \
+        -background white -font TkTextFont -foreground black -height 95 \
+        -highlightcolor black -insertbackground black \
         -selectbackground {#c4c4c4} -selectforeground black -state disabled \
         -width 200 -wrap word 
-    .top37.tLa39.tex41 configure -font TkTextFont
-    .top37.tLa39.tex41 insert end text
-    vTcl:DefineAlias "$site_3_0.tex41" "Text1" vTcl:WidgetProc "Toplevel1" 1
-    place $site_3_0.tex41 \
-        -in $site_3_0 -x 10 -y 20 -width 200 -relwidth 0 -height 90 \
+    .top37.lab53.tex54 configure -font TkTextFont
+    .top37.lab53.tex54 insert end text
+    vTcl:DefineAlias "$site_3_0.tex54" "Text1" vTcl:WidgetProc "Toplevel1" 1
+    place $site_3_0.tex54 \
+        -in $site_3_0 -x 10 -y 20 -width 200 -relwidth 0 -height 95 \
         -relheight 0 -anchor nw -bordermode ignore 
     ###################
     # SETTING GEOMETRY
@@ -352,7 +349,7 @@ proc vTclWindow.top37 {base} {
     place $top.tBu38 \
         -in $top -x 154 -y 280 -width 130 -height 25 -anchor nw \
         -bordermode ignore 
-    place $top.tLa39 \
+    place $top.lab53 \
         -in $top -x 270 -y 0 -width 220 -relwidth 0 -height 125 -relheight 0 \
         -anchor nw -bordermode ignore 
 
