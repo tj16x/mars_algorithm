@@ -56,6 +56,12 @@ def set_Tk_var():
     alpha = StringVar()
     alpha.set(0.0)
 
+def generate_surface(box):
+    global N, M
+    box.configure(state=NORMAL)
+    box.insert(END, "Generated " + N.get() + " by " + M.get() + " matrix.\n")
+    box.configure(state=DISABLED)
+    
 
 def init(top, gui, *args, **kwargs):
     global w, top_level, root
@@ -70,7 +76,7 @@ def destroy_window():
     top_level = None
 
 if __name__ == '__main__':
-    import V2
-    V2.vp_start_gui()
+    import GUI
+    GUI.vp_start_gui()
 
 

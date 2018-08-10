@@ -6,6 +6,7 @@
 #    Aug 09, 2018 03:11:58 PM
 
 import sys
+import mars
 
 try:
     from Tkinter import *
@@ -19,15 +20,15 @@ except ImportError:
     import tkinter.ttk as ttk
     py3 = True
 
-import V2_support
+import GUI_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
     root = Tk()
-    V2_support.set_Tk_var()
+    GUI_support.set_Tk_var()
     top = MARS (root)
-    V2_support.init(root, top)
+    GUI_support.init(root, top)
     root.mainloop()
 
 w = None
@@ -36,9 +37,9 @@ def create_MARS(root, *args, **kwargs):
     global w, w_win, rt
     rt = root
     w = Toplevel (root)
-    V2_support.set_Tk_var()
+    GUI_support.set_Tk_var()
     top = MARS (w)
-    V2_support.init(w, top, *args, **kwargs)
+    GUI_support.init(w, top, *args, **kwargs)
     return (w, top)
 
 def destroy_MARS():
@@ -132,7 +133,7 @@ class MARS:
         self.Spinbox1.configure(from_="1.0")
         self.Spinbox1.configure(highlightbackground="black")
         self.Spinbox1.configure(selectbackground="#c4c4c4")
-        self.Spinbox1.configure(textvariable=V2_support.N)
+        self.Spinbox1.configure(textvariable=GUI_support.N)
         self.Spinbox1.configure(to="1000.0")
         self.Spinbox1.configure(width=36)
 
@@ -144,7 +145,7 @@ class MARS:
         self.Spinbox2.configure(from_="1.0")
         self.Spinbox2.configure(highlightbackground="black")
         self.Spinbox2.configure(selectbackground="#c4c4c4")
-        self.Spinbox2.configure(textvariable=V2_support.M)
+        self.Spinbox2.configure(textvariable=GUI_support.M)
         self.Spinbox2.configure(to="1000.0")
         self.Spinbox2.configure(width=37)
 
@@ -156,7 +157,7 @@ class MARS:
         self.Spinbox3.configure(from_="1.0")
         self.Spinbox3.configure(highlightbackground="black")
         self.Spinbox3.configure(selectbackground="#c4c4c4")
-        self.Spinbox3.configure(textvariable=V2_support.dx)
+        self.Spinbox3.configure(textvariable=GUI_support.dx)
         self.Spinbox3.configure(to="1000.0")
 
         self.Spinbox4 = Spinbox(self.Labelframe1, from_=1.0, to=1000.0)
@@ -167,7 +168,7 @@ class MARS:
         self.Spinbox4.configure(from_="1.0")
         self.Spinbox4.configure(highlightbackground="black")
         self.Spinbox4.configure(selectbackground="#c4c4c4")
-        self.Spinbox4.configure(textvariable=V2_support.dy)
+        self.Spinbox4.configure(textvariable=GUI_support.dy)
         self.Spinbox4.configure(to="1000.0")
 
         self.Spinbox5 = Spinbox(self.Labelframe1, from_=1.0, to=100.0)
@@ -179,7 +180,7 @@ class MARS:
         self.Spinbox5.configure(highlightbackground="black")
         self.Spinbox5.configure(selectbackground="#c4c4c4")
         self.Spinbox5.configure(state=DISABLED)
-        self.Spinbox5.configure(textvariable=V2_support.attempts)
+        self.Spinbox5.configure(textvariable=GUI_support.attempts)
         self.Spinbox5.configure(to="100.0")
         self.Spinbox5.configure(width=97)
 
@@ -226,7 +227,7 @@ class MARS:
         self.Spinbox6.configure(highlightbackground="black")
         self.Spinbox6.configure(selectbackground="#c4c4c4")
         self.Spinbox6.configure(state=DISABLED)
-        self.Spinbox6.configure(textvariable=V2_support.rmsheight)
+        self.Spinbox6.configure(textvariable=GUI_support.rmsheight)
         self.Spinbox6.configure(to="1000.0")
 
         self.Spinbox7 = Spinbox(self.Labelframe2, from_=0.0, to=100.0)
@@ -237,7 +238,7 @@ class MARS:
         self.Spinbox7.configure(highlightbackground="black")
         self.Spinbox7.configure(increment="0.1")
         self.Spinbox7.configure(selectbackground="#c4c4c4")
-        self.Spinbox7.configure(textvariable=V2_support.skewness)
+        self.Spinbox7.configure(textvariable=GUI_support.skewness)
         self.Spinbox7.configure(to="100.0")
 
         self.Spinbox8 = Spinbox(self.Labelframe2, from_=0.0, to=100.0)
@@ -248,7 +249,7 @@ class MARS:
         self.Spinbox8.configure(highlightbackground="black")
         self.Spinbox8.configure(increment="0.1")
         self.Spinbox8.configure(selectbackground="#c4c4c4")
-        self.Spinbox8.configure(textvariable=V2_support.kurtosis)
+        self.Spinbox8.configure(textvariable=GUI_support.kurtosis)
         self.Spinbox8.configure(to="100.0")
 
         self.Labelframe4 = LabelFrame(top)
@@ -272,7 +273,7 @@ class MARS:
                 , y=-10, h=5)
         self.value_list = ["Exponential",]
         self.TCombobox1.configure(values=self.value_list)
-        self.TCombobox1.configure(textvariable=V2_support.acf_type)
+        self.TCombobox1.configure(textvariable=GUI_support.acf_type)
         self.TCombobox1.configure(width=125)
         self.TCombobox1.configure(takefocus="")
         self.TCombobox1.configure(cursor="arrow")
@@ -312,7 +313,7 @@ class MARS:
         self.Spinbox9.configure(from_="1.0")
         self.Spinbox9.configure(highlightbackground="black")
         self.Spinbox9.configure(selectbackground="#c4c4c4")
-        self.Spinbox9.configure(textvariable=V2_support.n)
+        self.Spinbox9.configure(textvariable=GUI_support.n)
         self.Spinbox9.configure(to="1000.0")
 
         self.Spinbox10 = Spinbox(self.Labelframe4, from_=1.0, to=1000.0)
@@ -323,7 +324,7 @@ class MARS:
         self.Spinbox10.configure(from_="1.0")
         self.Spinbox10.configure(highlightbackground="black")
         self.Spinbox10.configure(selectbackground="#c4c4c4")
-        self.Spinbox10.configure(textvariable=V2_support.m)
+        self.Spinbox10.configure(textvariable=GUI_support.m)
         self.Spinbox10.configure(to="1000.0")
 
         self.Spinbox11 = Spinbox(self.Labelframe4, from_=0.0, to=360.0)
@@ -334,11 +335,12 @@ class MARS:
         self.Spinbox11.configure(highlightbackground="black")
         self.Spinbox11.configure(increment="0.5")
         self.Spinbox11.configure(selectbackground="#c4c4c4")
-        self.Spinbox11.configure(textvariable=V2_support.alpha)
+        self.Spinbox11.configure(textvariable=GUI_support.alpha)
         self.Spinbox11.configure(to="360.0")
 
         self.TButton1 = ttk.Button(top)
         self.TButton1.place(relx=0.02, rely=0.88, height=25, width=133)
+        self.TButton1.configure(command=lambda: GUI_support.generate_surface(self.Text1))
         self.TButton1.configure(takefocus="")
         self.TButton1.configure(text='''Generate surface''')
         self.TButton1.configure(width=133)
