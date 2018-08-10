@@ -71,7 +71,7 @@ proc vTclWindow.top37 {base} {
     vTcl::widgets::core::toplevel::createCmd $top -class Toplevel \
         -background {#d9d9d9} -highlightcolor black 
     wm focusmodel $top passive
-    wm geometry $top 490x320+830+270
+    wm geometry $top 490x320+721+477
     update
     # set in toplevel.wgt.
     global vTcl
@@ -289,7 +289,7 @@ proc vTclWindow.top37 {base} {
     ttk::style configure TButton -foreground #000000
     ttk::style configure TButton -font TkDefaultFont
     ttk::button $top.tBu62 \
-        -takefocus {} -text {Generate surface} 
+        -command generate_surface -takefocus {} -text {Generate surface} 
     vTcl:DefineAlias "$top.tBu62" "TButton1" vTcl:WidgetProc "Toplevel1" 1
     ttk::style configure TButton -background #d9d9d9
     ttk::style configure TButton -foreground #000000
@@ -311,7 +311,7 @@ proc vTclWindow.top37 {base} {
     vTcl:DefineAlias "$top.tBu38" "TButton4" vTcl:WidgetProc "Toplevel1" 1
     labelframe $top.lab53 \
         -foreground black -text {Program output} -background {#d9d9d9} \
-        -height 125 -width 220 
+        -height 125 -highlightcolor black -width 220 
     vTcl:DefineAlias "$top.lab53" "Labelframe3" vTcl:WidgetProc "Toplevel1" 1
     set site_3_0 $top.lab53
     text $site_3_0.tex54 \
