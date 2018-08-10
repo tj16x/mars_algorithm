@@ -7,6 +7,8 @@
 
 
 import sys
+import mars
+import numpy as np
 
 try:
     from Tkinter import *
@@ -52,16 +54,53 @@ def set_Tk_var():
     global m
     m = StringVar()
     m.set(16)
-    global alpha
-    alpha = StringVar()
-    alpha.set(0.0)
+    global phi
+    phi = StringVar()
+    phi.set(0.0)
 
 def generate_surface(box):
-    global N, M
+    global N, M, dx, dy, attempts, rmsheight, skewness, kurtosis, acf_type
+    global n, m, phi
+    
+    ### TO DO: Change this once you add support for advanced settings
+    cutoff = 1e-5
+    
+    ### ----- Test code here ----- ###
     box.configure(state=NORMAL)
     box.insert(END, "Generated " + N.get() + " by " + M.get() + " matrix.\n")
     box.configure(state=DISABLED)
+    ### -------------------------- ###
     
+    # Create an instance of the surface class
+    for i in range(int(attempts.get())):
+        s= mars.surface(
+                int(n.get()), int(m.get()), int(N.get()), int(M.get()), \
+                np.float64(cutoff), np.float64(dx.get()), \
+                np.float64(dy.get()), np.float64(phi.get()))
+                
+        # Step 1: Specify ACF
+        acf= s.acf()
+    
+        # Step 2: Assemble & solve nonlinear system of equations
+        guess= s.f0()        
+        alpha= s.krylov(method="lgmres")
+        
+        # Step 3: Generate a random number matrix
+        rescaled_skew, rescaled_kurt = s.rescale(
+                alpha, np.float64(skewness.get()), \
+                np.float64(kurtosis.get()))
+        
+        if (np.isnan(rescaled_skew)) and (np.isnan(rescaled_kurt)):
+            sys.exit("Error: The program can't generate the surface because of the input Skew and Kurtosis.")
+        
+        rand= s.johnson_eta(rescaled_skew, rescaled_kurt)
+        
+        # Step 4: Generate the heightmap
+        hmap= s.heightmap(alpha,rand)
+        
+        # Step 5: Save the surface
+        s.save("heightmap.dat")
+        
 
 def init(top, gui, *args, **kwargs):
     global w, top_level, root

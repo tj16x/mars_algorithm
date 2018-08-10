@@ -6,7 +6,6 @@
 #    Aug 09, 2018 03:11:58 PM
 
 import sys
-import mars
 
 try:
     from Tkinter import *
@@ -335,7 +334,7 @@ class MARS:
         self.Spinbox11.configure(highlightbackground="black")
         self.Spinbox11.configure(increment="0.5")
         self.Spinbox11.configure(selectbackground="#c4c4c4")
-        self.Spinbox11.configure(textvariable=GUI_support.alpha)
+        self.Spinbox11.configure(textvariable=GUI_support.phi)
         self.Spinbox11.configure(to="360.0")
 
         self.TButton1 = ttk.Button(top)
