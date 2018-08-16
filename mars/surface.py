@@ -192,7 +192,7 @@ class surface():
         return alpha
     
     # Krylov approximation for inverse Jacobian
-    def krylov(self, tolerance=1e-7, method='gmres', maxiter=1000):
+    def krylov(self, tolerance=1e-7, method='gmres', maxiter=1000, residual=True):
         print "\nKrylov method initialised...\n"
 
         # j_options is used to pass options specific to the Krylov solver
@@ -200,7 +200,12 @@ class surface():
         j_options   = {'method':method}
         optionsList = {'xatol':1e-7, 'jac_options':j_options, 'maxiter':maxiter}
 
-        x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.plot_residual, options=optionsList)
+        # If the residual parameter is true, the function plots the residual
+        # on each iteration of the root finding process.
+        if residual:
+            x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.plot_residual, options=optionsList)
+        else:
+           x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, options=optionsList) 
 
         if x['success']:
             print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")

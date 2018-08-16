@@ -353,9 +353,10 @@ class MARS:
 
         self.TButton3 = ttk.Button(top)
         self.TButton3.place(relx=0.82, rely=0.88, height=25, width=76)
+        self.TButton3.configure(command=lambda: GUI_support.save_as(self))
         self.TButton3.configure(takefocus="")
         self.TButton3.configure(text='''Save as''')
-        self.TButton3.configure(state=DISABLED)
+        self.TButton3.configure(state=NORMAL)
 
         self.TButton4 = ttk.Button(top)
         self.TButton4.place(relx=0.31, rely=0.88, height=25, width=130)

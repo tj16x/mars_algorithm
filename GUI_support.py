@@ -7,11 +7,14 @@
 
 
 import sys
+import cStringIO
 import mars
 import numpy as np
+import matplotlib.pyplot as plt
 
 try:
     from Tkinter import *
+    import tkFileDialog
 except ImportError:
     from tkinter import *
 
@@ -21,6 +24,7 @@ try:
 except ImportError:
     import tkinter.ttk as ttk
     py3 = True
+    
 def set_Tk_var():
     global N
     N = StringVar()
@@ -61,46 +65,83 @@ def set_Tk_var():
 def generate_surface(box):
     global N, M, dx, dy, attempts, rmsheight, skewness, kurtosis, acf_type
     global n, m, phi
+    global hmap
     
     ### TO DO: Change this once you add support for advanced settings
     cutoff = 1e-5
     
-    ### ----- Test code here ----- ###
-    box.configure(state=NORMAL)
-    box.insert(END, "Generated " + N.get() + " by " + M.get() + " matrix.\n")
-    box.configure(state=DISABLED)
-    ### -------------------------- ###
+    def update_box(box, stream):
+        ### --- Function to add text to the output box in the GUI --- ###
+        box.configure(state=NORMAL)
+        box.insert(END, stream.getvalue())
+        box.configure(state=DISABLED)
+        stream.truncate(0)
+        
     
-    # Create an instance of the surface class
+    # Capture the stdoutput to a variable which then can be used to 
+    # update the box that reports program updates.
+    stdout_ = sys.stdout
+    stream = cStringIO.StringIO()
+    sys.stdout = stream
+    
+    # Repeat the surface generation steps however many times needed.
     for i in range(int(attempts.get())):
+
         s= mars.surface(
                 int(n.get()), int(m.get()), int(N.get()), int(M.get()), \
                 np.float64(cutoff), np.float64(dx.get()), \
                 np.float64(dy.get()), np.float64(phi.get()))
-                
+        
+        update_box(box, stream)
+        
         # Step 1: Specify ACF
         acf= s.acf()
     
         # Step 2: Assemble & solve nonlinear system of equations
-        guess= s.f0()        
-        alpha= s.krylov(method="lgmres")
+        guess= s.f0()
+        alpha= s.krylov(method="lgmres", residual=False)
+        
+        update_box(box, stream)
         
         # Step 3: Generate a random number matrix
         rescaled_skew, rescaled_kurt = s.rescale(
                 alpha, np.float64(skewness.get()), \
                 np.float64(kurtosis.get()))
         
+        update_box(box, stream)
+        
         if (np.isnan(rescaled_skew)) and (np.isnan(rescaled_kurt)):
             sys.exit("Error: The program can't generate the surface because of the input Skew and Kurtosis.")
         
         rand= s.johnson_eta(rescaled_skew, rescaled_kurt)
         
+        update_box(box, stream)
+        
         # Step 4: Generate the heightmap
         hmap= s.heightmap(alpha,rand)
+        update_box(box, stream)
         
         # Step 5: Save the surface
         s.save("heightmap.dat")
+        update_box(box, stream)
+    
+    # Restore stdout to initial state
+    sys.stdout = stdout_
+    
+    # Plot the final surface
+    plt.figure(2)
+    plt.pcolormesh(range(int(N.get())), range(int(M.get())), hmap, cmap=plt.cm.RdYlBu_r)
+    plt.axis("tight")
+    plt.show()
+
         
+def save_as(self):
+    global hmap
+    self.f = tkFileDialog.asksaveasfilename(   
+        filetypes = (("dat file", "*.dat"),    
+                     ("CSV file", "*.csv")))
+    with open(self.f, 'w') as outputFile:
+        outputFile.write(hmap)
 
 def init(top, gui, *args, **kwargs):
     global w, top_level, root
