@@ -66,7 +66,7 @@ class MARS:
         self.style.map('.',background=
             [('selected', _compcolor), ('active',_ana2color)])
 
-        top.geometry("490x320+830+270")
+        top.geometry("590x320+830+270")
         top.title("MARS")
         top.configure(highlightcolor="black")
 
@@ -230,7 +230,7 @@ class MARS:
         self.Spinbox6.configure(textvariable=GUI_support.rmsheight)
         self.Spinbox6.configure(to="1000.0")
 
-        self.Spinbox7 = Spinbox(self.Labelframe2, from_=0.0, to=100.0)
+        self.Spinbox7 = Spinbox(self.Labelframe2, from_=-100.0, to=100.0)
         self.Spinbox7.place(relx=0.46, rely=0.48, relheight=0.15, relwidth=0.4
                 , y=-10, h=5)
         self.Spinbox7.configure(activebackground="#f9f9f9")
@@ -241,7 +241,7 @@ class MARS:
         self.Spinbox7.configure(textvariable=GUI_support.skewness)
         self.Spinbox7.configure(to="100.0")
 
-        self.Spinbox8 = Spinbox(self.Labelframe2, from_=0.0, to=100.0)
+        self.Spinbox8 = Spinbox(self.Labelframe2, from_=-100.0, to=100.0)
         self.Spinbox8.place(relx=0.46, rely=0.72, relheight=0.15, relwidth=0.4
                 , y=-10, h=5)
         self.Spinbox8.configure(activebackground="#f9f9f9")

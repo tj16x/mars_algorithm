@@ -108,12 +108,17 @@ def generate_surface(box, root):
 
         update_box(box, stream, root)
 
+        print ("Attempting to generate a surface with Sk=" + skewness.get()\
+               + " and Ku=" + kurtosis.get())
+
+        update_box(box, stream, root)
+
         # Step 1: Specify ACF
         acf= s.acf()
 
         # Step 2: Assemble & solve nonlinear system of equations
         guess= s.f0()
-        alpha= s.krylov(method="lgmres", residual=False)
+        alpha= s.krylov(method="lgmres", plot=False)
 
         update_box(box, stream, root)
 
@@ -137,14 +142,17 @@ def generate_surface(box, root):
     # Restore stdout to initial state
     sys.stdout = stdout_
     
-    # Plot the final surface
+    # Plot the final surface with a colourbar
     plt.figure(2)
     plt.pcolormesh(range(int(N.get())), range(int(M.get())), hmap, cmap=plt.cm.RdYlBu_r)
+    plt.title("Generated surface")
+    plt.xlabel("Streamwise points")
+    plt.ylabel("Spanwise points")
     plt.axis("tight")
+    plt.colorbar()
     plt.show()
     
 
-        
 def save_as(self):
     global hmap
     self.f = tkFileDialog.asksaveasfilename(   

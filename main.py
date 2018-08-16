@@ -22,7 +22,7 @@ kurt  : target kurtosis for the surface
 fout  : heightmap filename
 """
 
-n=16
+n=5
 m=n
 N=128
 M=N
@@ -30,7 +30,7 @@ dx=1
 dy=1
 cutoff=1e-5
 phi=0
-skew=0.3
+skew=0.5
 kurt=3.5
 fout='heightmap.dat'
 
@@ -40,6 +40,7 @@ s= mars.surface(n,m,N,M,cutoff,dx,dy,phi)
 
 # Step 1: Specify ACF
 acf= s.acf()
+s.plot_contour(acf)
 
 # Step 2: Assemble & solve nonlinear system of equations
 guess= s.f0()

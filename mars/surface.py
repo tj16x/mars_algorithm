@@ -15,7 +15,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import root
-from scipy.stats import johnsonsu,johnsonsb
+from scipy.stats import johnsonsu,johnsonsb, skew, kurtosis
 from f_johnson_M import f_johnson_M
 
 # Surface class
@@ -78,10 +78,13 @@ class surface():
         self.m = idx(acf[0,:],self.c)
         self.rhs = acf[0:self.n,0:self.m]
 
+        return self.rhs
+
+    # Plots the contours of the provided ACF
+    def plot_contour(self, acf):
         plt.figure(1)
         plt.contourf(acf)
-
-        return self.rhs
+        plt.title("Contours of the Autocorrelation coefficient function")
 
     # Assemble initial guess for solution to non-linear system of equations
     def f0(self):
@@ -192,7 +195,7 @@ class surface():
         return alpha
     
     # Krylov approximation for inverse Jacobian
-    def krylov(self, tolerance=1e-7, method='gmres', maxiter=1000, residual=True):
+    def krylov(self, tolerance=1e-7, method='gmres', maxiter=1000, plot=True):
         print "Krylov method initialised...\n"
 
         # j_options is used to pass options specific to the Krylov solver
@@ -202,13 +205,13 @@ class surface():
 
         # If the residual parameter is true, the function plots the residual
         # on each iteration of the root finding process.
-        if residual:
+        if plot:
             x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.plot_residual, options=optionsList)
         else:
-           x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, options=optionsList) 
+           x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.print_residual, options=optionsList) 
 
         if x['success']:
-            print(x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")
+            print("\n" + x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")
         else:
             print("WARNING: The Krylov algorithm did NOT converge succesfully.\n")
             print(x['message'])
@@ -219,6 +222,7 @@ class surface():
 
         return alpha
     
+    # Plots the residual after each iteration of the Krylov approximation
     def plot_residual(self, solution, residual):
         plt.figure(0)
         plt.scatter(self.iterations, residual[0], marker='D', edgecolors='k', c='#FF33FF')
@@ -228,6 +232,16 @@ class surface():
         plt.title("Last Residual: "+ str(residual[0]))
         
         plt.pause(0.05)
+        self.iterations += 1
+
+    def print_residual(self, solution, residual):
+
+        if self.iterations % 50 == 0:
+            print ("Iteration\tResidual")
+
+        if self.iterations % 5 == 0:
+            print(str(self.iterations) + "\t  " + str(residual[0]))
+
         self.iterations += 1
     
 
@@ -285,7 +299,7 @@ class surface():
         return self.rand
 
 
-    def rescale(self, solutions, skew, kurt):
+    def rescale(self, solutions, skewness, kurt):
 
         # Equation 25 in Bakalos (2003)
         theta=np.zeros(self.n*self.m)
@@ -300,7 +314,7 @@ class surface():
 
         # Rescaling coeffient for Equation 23 in Bakalos (2003)
         c1= np.sum(theta[:nsum]**3.0) / ( (np.sum(theta[:nsum]**2.0))**(3.0/2.0))
-        skew_rescaled= skew/c1
+        skew_rescaled= skewness/c1
 
         # Rescaling coeffient for Equation 24 in Bakalos (2003)
         c2= np.sum(theta[:nsum]**4.0) / ( np.sum(theta[:nsum]**2.0)**2.0)
@@ -345,6 +359,8 @@ class surface():
                     for l in range(self.m):
                         self.hmap[i,j] += alpha[k,l]*rand[ko[i+k],lo[j+l]]
 
+        print ("Actual Sk: " +str(skew(self.hmap, axis=None)))
+        print ("Actual Ku: " +str(kurtosis(self.hmap, axis=None)))
         return self.hmap
 
     # Save the heightmap
