@@ -9,6 +9,7 @@ import sys
 
 try:
     from Tkinter import *
+    import ScrolledText
 except ImportError:
     from tkinter import *
 
@@ -339,7 +340,7 @@ class MARS:
 
         self.TButton1 = ttk.Button(top)
         self.TButton1.place(relx=0.02, rely=0.88, height=25, width=133)
-        self.TButton1.configure(command=lambda: GUI_support.generate_surface(self.Text1))
+        self.TButton1.configure(command=lambda: GUI_support.generate_surface(self.Scrolledtext1, top))
         self.TButton1.configure(takefocus="")
         self.TButton1.configure(text='''Generate surface''')
         self.TButton1.configure(width=133)
@@ -370,16 +371,17 @@ class MARS:
         self.Labelframe3.configure(text='''Program output''')
         self.Labelframe3.configure(width=220)
 
-        self.Text1 = Text(self.Labelframe3)
-        self.Text1.place(relx=0.05, rely=0.17, relheight=0.76, relwidth=0.91
-                , y=-10, h=5)
-        self.Text1.configure(background="white")
-        self.Text1.configure(font="TkTextFont")
-        self.Text1.configure(selectbackground="#c4c4c4")
-        self.Text1.configure(state=DISABLED)
-        self.Text1.configure(width=200)
-        self.Text1.configure(wrap=WORD)
 
+        self.Scrolledtext1 = ScrolledText.ScrolledText(self.Labelframe3)
+        self.Scrolledtext1.place(relx=0.05, rely=0.17, relheight=0.76
+                , relwidth=0.91, y=-10, h=5)
+        self.Scrolledtext1.configure(background="white")
+        self.Scrolledtext1.configure(font="TkTextFont")
+        self.Scrolledtext1.configure(insertborderwidth="3")
+        self.Scrolledtext1.configure(selectbackground="#c4c4c4")
+        self.Scrolledtext1.configure(width=10)
+        self.Scrolledtext1.configure(wrap=WORD)
+        self.Scrolledtext1.configure(state=DISABLED)
 
 
 

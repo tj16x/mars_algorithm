@@ -8,9 +8,18 @@
 
 import sys
 import cStringIO
-import mars
 import numpy as np
+from time import strftime, gmtime
+
+# First we should tell matplotlib that we are using a tkinter based GUI.
+# Otherwise there might be backend conflicts which would cause the main
+# window to freeze until matplotlib plots are closed. MARS import should
+# happen after this setting too.
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+
+import mars
 
 try:
     from Tkinter import *
@@ -62,28 +71,33 @@ def set_Tk_var():
     phi = StringVar()
     phi.set(0.0)
 
-def generate_surface(box):
+def update_box(box, stream, root):
+    ### --- Function to add text to the output box in the GUI --- ###
+    if len(stream.getvalue())>0:
+            box.configure(state=NORMAL)
+            time_stamp = strftime('%H:%M', gmtime())
+            new_text = "["+time_stamp + "] " + stream.getvalue()
+            box.insert(END, new_text)
+            box.configure(state=DISABLED)
+            root.update_idletasks()
+            box.see(END)        
+            stream.truncate(0)
+
+
+def generate_surface(box, root):
     global N, M, dx, dy, attempts, rmsheight, skewness, kurtosis, acf_type
     global n, m, phi
     global hmap
-    
+
     ### TO DO: Change this once you add support for advanced settings
     cutoff = 1e-5
-    
-    def update_box(box, stream):
-        ### --- Function to add text to the output box in the GUI --- ###
-        box.configure(state=NORMAL)
-        box.insert(END, stream.getvalue())
-        box.configure(state=DISABLED)
-        stream.truncate(0)
-        
-    
+
     # Capture the stdoutput to a variable which then can be used to 
     # update the box that reports program updates.
     stdout_ = sys.stdout
     stream = cStringIO.StringIO()
     sys.stdout = stream
-    
+
     # Repeat the surface generation steps however many times needed.
     for i in range(int(attempts.get())):
 
@@ -91,40 +105,35 @@ def generate_surface(box):
                 int(n.get()), int(m.get()), int(N.get()), int(M.get()), \
                 np.float64(cutoff), np.float64(dx.get()), \
                 np.float64(dy.get()), np.float64(phi.get()))
-        
-        update_box(box, stream)
-        
+
+        update_box(box, stream, root)
+
         # Step 1: Specify ACF
         acf= s.acf()
-    
+
         # Step 2: Assemble & solve nonlinear system of equations
         guess= s.f0()
         alpha= s.krylov(method="lgmres", residual=False)
-        
-        update_box(box, stream)
-        
+
+        update_box(box, stream, root)
+
         # Step 3: Generate a random number matrix
         rescaled_skew, rescaled_kurt = s.rescale(
                 alpha, np.float64(skewness.get()), \
                 np.float64(kurtosis.get()))
-        
-        update_box(box, stream)
-        
+
+        update_box(box, stream, root)
+
         if (np.isnan(rescaled_skew)) and (np.isnan(rescaled_kurt)):
             sys.exit("Error: The program can't generate the surface because of the input Skew and Kurtosis.")
-        
+
         rand= s.johnson_eta(rescaled_skew, rescaled_kurt)
-        
-        update_box(box, stream)
-        
+        update_box(box, stream, root)
+
         # Step 4: Generate the heightmap
         hmap= s.heightmap(alpha,rand)
-        update_box(box, stream)
-        
-        # Step 5: Save the surface
-        s.save("heightmap.dat")
-        update_box(box, stream)
-    
+        update_box(box, stream, root)
+
     # Restore stdout to initial state
     sys.stdout = stdout_
     
@@ -133,6 +142,7 @@ def generate_surface(box):
     plt.pcolormesh(range(int(N.get())), range(int(M.get())), hmap, cmap=plt.cm.RdYlBu_r)
     plt.axis("tight")
     plt.show()
+    
 
         
 def save_as(self):

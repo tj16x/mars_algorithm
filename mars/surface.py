@@ -32,7 +32,7 @@ class surface():
             N (int)
             c (float)
         """
-        print "\nWelcome to MARS."
+        print "Welcome to MARS."
         self.n = n
         self.m = m
         self.N = N
@@ -44,11 +44,11 @@ class surface():
         self.iterations = 0
 
         if n>40 or m>40:
-            print "\nWARNING: Too many points in the correlation function have been selected. The solution of the system might not converge successfully."
+            print "WARNING: Too many points in the correlation function have been selected. The solution of the system might not converge successfully."
         elif n>30 or m>30:
-            print "\nWARNING: Solving the system of equations might take more than an hour due to the high number of points selected in the ACF."
+            print "WARNING: Solving the system of equations might take more than an hour due to the high number of points selected in the ACF."
         elif n>20 or m>30:
-            print "\nWARNING: Solving the system of equations might take more than twenty minutes due to the number of points selected in the ACF."
+            print "WARNING: Solving the system of equations might take more than twenty minutes due to the number of points selected in the ACF."
 
     # Assemble autocorrelation coefficient function (ACF)
     def acf(self):
@@ -193,7 +193,7 @@ class surface():
     
     # Krylov approximation for inverse Jacobian
     def krylov(self, tolerance=1e-7, method='gmres', maxiter=1000, residual=True):
-        print "\nKrylov method initialised...\n"
+        print "Krylov method initialised...\n"
 
         # j_options is used to pass options specific to the Krylov solver
         # optionsList passes different arguments to the root function
@@ -363,6 +363,6 @@ class surface():
             for row in mat:
                 np.savetxt(f, row, fmt=['%-7d','%-7d','% 7.12f'])
 
-        print "\nA heightmap called " + fname + " has been saved succesffully.\n"
+        print "A heightmap called " + fname + " has been saved succesffully.\n"
 
         return
