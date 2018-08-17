@@ -340,7 +340,7 @@ class MARS:
 
         self.TButton1 = ttk.Button(top)
         self.TButton1.place(relx=0.02, rely=0.88, height=25, width=133)
-        self.TButton1.configure(command=lambda: GUI_support.generate_surface(self.Scrolledtext1, top))
+        self.TButton1.configure(command=lambda: GUI_support.generate_surface(self.Scrolledtext1, top, button_list))
         self.TButton1.configure(takefocus="")
         self.TButton1.configure(text='''Generate surface''')
         self.TButton1.configure(width=133)
@@ -383,6 +383,8 @@ class MARS:
         self.Scrolledtext1.configure(wrap=WORD)
         self.Scrolledtext1.configure(state=DISABLED)
 
+        # List all the buttons to be disabled when the program starts running
+        button_list = [self.TButton1, self.TButton2, self.TButton3, self.TButton4]
 
 
 

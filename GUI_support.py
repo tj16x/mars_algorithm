@@ -18,6 +18,7 @@ from time import strftime, gmtime
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+from stl import mesh
 
 import mars
 
@@ -84,7 +85,7 @@ def update_box(box, stream, root):
             stream.truncate(0)
 
 
-def generate_surface(box, root):
+def generate_surface(box, root, button_list):
     global N, M, dx, dy, attempts, rmsheight, skewness, kurtosis, acf_type
     global n, m, phi
     global hmap
@@ -98,13 +99,36 @@ def generate_surface(box, root):
     stream = cStringIO.StringIO()
     sys.stdout = stream
 
+    try:
+        N_int = int(N.get())
+        M_int = int(M.get())
+        dx_float = np.float64(dx.get())
+        dy_float = np.float64(dy.get())
+        n_int = int(n.get())
+        m_int = int(m.get())
+        cutoff_float = np.float64(cutoff)
+        phi_float = np.float64(phi.get())
+        attempts_int = int(attempts.get())
+        rmsheight_float = np.float64(rmsheight.get())
+        skewness_float = np.float64(skewness.get())
+        kurtosis_float = np.float64(kurtosis.get())
+    except:
+        print ("ERROR: Could not convert input data to the correct type. Check for any non-number inputs.")
+        update_box(box, stream, root)
+        return
+
+    # Button disabling at start of surface generation and cursor changing
+    for entry in button_list:
+        entry.configure(state=DISABLED)
+    root.config(cursor="watch")
+
     # Repeat the surface generation steps however many times needed.
-    for i in range(int(attempts.get())):
+    for i in range(attempts_int):
 
         s= mars.surface(
-                int(n.get()), int(m.get()), int(N.get()), int(M.get()), \
-                np.float64(cutoff), np.float64(dx.get()), \
-                np.float64(dy.get()), np.float64(phi.get()))
+                n_int, m_int, N_int, M_int, \
+                cutoff_float, dx_float, \
+                dy_float, phi_float)
 
         update_box(box, stream, root)
 
@@ -114,7 +138,13 @@ def generate_surface(box, root):
         update_box(box, stream, root)
 
         # Step 1: Specify ACF
-        acf= s.acf()
+        if (acf_type.get() == "Exponential"):
+            acf= s.acf()
+        else:
+            print ("ERROR: Unknown ACF type selected.")
+            update_box(box, stream, root)
+            restore_state(root, button_list)
+            return
 
         # Step 2: Assemble & solve nonlinear system of equations
         guess= s.f0()
@@ -124,13 +154,12 @@ def generate_surface(box, root):
 
         # Step 3: Generate a random number matrix
         rescaled_skew, rescaled_kurt = s.rescale(
-                alpha, np.float64(skewness.get()), \
-                np.float64(kurtosis.get()))
+                alpha, skewness_float, kurtosis_float)
 
         update_box(box, stream, root)
 
         if (np.isnan(rescaled_skew)) and (np.isnan(rescaled_kurt)):
-            sys.exit("Error: The program can't generate the surface because of the input Skew and Kurtosis.")
+            sys.exit("ERROR: The program can't generate the surface because of the input Skew and Kurtosis.")
 
         rand= s.johnson_eta(rescaled_skew, rescaled_kurt)
         update_box(box, stream, root)
@@ -141,25 +170,45 @@ def generate_surface(box, root):
 
     # Restore stdout to initial state
     sys.stdout = stdout_
-    
+
+    restore_state(root, button_list)
+
     # Plot the final surface with a colourbar
     plt.figure(2)
-    plt.pcolormesh(range(int(N.get())), range(int(M.get())), hmap, cmap=plt.cm.RdYlBu_r)
+    plt.pcolormesh(range(N_int), range(M_int), hmap, cmap=plt.cm.RdYlBu_r)
     plt.title("Generated surface")
     plt.xlabel("Streamwise points")
     plt.ylabel("Spanwise points")
     plt.axis("tight")
     plt.colorbar()
     plt.show()
-    
+
+def restore_state(root, button_list):
+    # Button enabling at end of surface generation and cursor resetting
+    for entry in button_list:
+        entry.configure(state=NORMAL)
+    root.config(cursor="")
 
 def save_as(self):
     global hmap
     self.f = tkFileDialog.asksaveasfilename(   
         filetypes = (("dat file", "*.dat"),    
-                     ("CSV file", "*.csv")))
+                     ("CSV file", "*.csv"),
+                     ("STL file", "*.stl")))
+    file_ext = self.f[-4:]
     with open(self.f, 'w') as outputFile:
-        outputFile.write(hmap)
+        if (file_ext) == ".dat":
+            outputFile.write(hmap)
+        elif (file_ext) == ".csv":
+            outputFile.write(hmap)
+        elif (file_ext) == ".stl":
+            final_mesh = mesh.Mesh(hmap, remove_empty_areas=False)
+            final_mesh.normals
+            final_mesh.v0
+            final_mesh.v1
+            final_mesh.v2
+            final_mesh.save(self.f)
+
 
 def init(top, gui, *args, **kwargs):
     global w, top_level, root
