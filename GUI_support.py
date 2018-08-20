@@ -19,7 +19,7 @@ from multiprocessing import Process
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
-from stl import mesh
+from stl_tools import numpy2stl
 
 import mars
 
@@ -214,12 +214,7 @@ def save_as(self):
         elif (file_ext) == ".csv":
             outputFile.write(hmap)
         elif (file_ext) == ".stl":
-            final_mesh = mesh.Mesh(hmap, remove_empty_areas=False)
-            final_mesh.normals
-            final_mesh.v0
-            final_mesh.v1
-            final_mesh.v2
-            final_mesh.save(self.f)
+            numpy2stl(hmap, self.f, solid=True)
 
 
 def init(top, gui, *args, **kwargs):

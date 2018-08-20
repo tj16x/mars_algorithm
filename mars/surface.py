@@ -331,7 +331,8 @@ class surface():
         
         # Estimate the required inputs to the Johnson function to meet the
         # target skewness and kurtosis
-        j_inputs = f_johnson_M(mean, var, skew_target, kurt_target)
+        sd = np.sqrt(var)
+        j_inputs = f_johnson_M(mean, sd, skew_target, kurt_target)
         gamma = j_inputs['coef'][0]
         delta = j_inputs['coef'][1]
         xi    = j_inputs['coef'][2]
