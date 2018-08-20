@@ -10,6 +10,7 @@ import sys
 import cStringIO
 import numpy as np
 from time import strftime, gmtime
+from multiprocessing import Process
 
 # First we should tell matplotlib that we are using a tkinter based GUI.
 # Otherwise there might be backend conflicts which would cause the main
@@ -122,6 +123,7 @@ def generate_surface(box, root, button_list):
         entry.configure(state=DISABLED)
     root.config(cursor="watch")
 
+
     # Repeat the surface generation steps however many times needed.
     for i in range(attempts_int):
 
@@ -159,8 +161,10 @@ def generate_surface(box, root, button_list):
         update_box(box, stream, root)
 
         if (np.isnan(rescaled_skew)) and (np.isnan(rescaled_kurt)):
-            sys.exit("ERROR: The program can't generate the surface because of the input Skew and Kurtosis.")
-
+            print("ERROR: The program can't generate the surface because of the input Skew and Kurtosis.")
+            update_box(box,stream, root)
+            restore_state(root, button_list)
+            return
         rand= s.johnson_eta(rescaled_skew, rescaled_kurt)
         update_box(box, stream, root)
 
@@ -173,15 +177,23 @@ def generate_surface(box, root, button_list):
 
     restore_state(root, button_list)
 
+    plot_process = Process(target = lambda: plot_surface(N_int, M_int, hmap))
+    plot_process.start()
+    plot_process.join()
+    #plot_surface(N_int, M_int, hmap)
+
+
+def plot_surface(N, M, hmap):
     # Plot the final surface with a colourbar
     plt.figure(2)
-    plt.pcolormesh(range(N_int), range(M_int), hmap, cmap=plt.cm.RdYlBu_r)
+    plt.pcolormesh(range(N), range(M), hmap, cmap=plt.cm.RdYlBu_r)
     plt.title("Generated surface")
     plt.xlabel("Streamwise points")
     plt.ylabel("Spanwise points")
     plt.axis("tight")
     plt.colorbar()
     plt.show()
+
 
 def restore_state(root, button_list):
     # Button enabling at end of surface generation and cursor resetting
