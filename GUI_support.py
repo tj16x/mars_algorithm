@@ -214,7 +214,7 @@ def save_as(self):
         elif (file_ext) == ".csv":
             outputFile.write(hmap)
         elif (file_ext) == ".stl":
-            numpy2stl(hmap, self.f, solid=True)
+            numpy2stl(hmap, self.f, solid=True, scale=10)
 
 
 def init(top, gui, *args, **kwargs):
