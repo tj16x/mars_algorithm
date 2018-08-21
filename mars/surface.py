@@ -361,7 +361,7 @@ class surface():
                         self.hmap[i,j] += alpha[k,l]*rand[ko[i+k],lo[j+l]]
 
         print ("Actual Sk: " +str(skew(self.hmap, axis=None)))
-        print ("Actual Ku: " +str(kurtosis(self.hmap, axis=None)))
+        print ("Actual Ku: " +str(kurtosis(self.hmap, axis=None, fisher=False)))
         return self.hmap
 
     # Save the heightmap
