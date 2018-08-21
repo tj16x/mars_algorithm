@@ -18,10 +18,11 @@ from multiprocessing import Process
 # happen after this setting too.
 import matplotlib
 matplotlib.use('TkAgg')
+
 import matplotlib.pyplot as plt
+import mars
 from stl_tools import numpy2stl
 
-import mars
 
 try:
     from Tkinter import *
@@ -81,8 +82,8 @@ def update_box(box, stream, root):
             new_text = "["+time_stamp + "] " + stream.getvalue()
             box.insert(END, new_text)
             box.configure(state=DISABLED)
+            box.see(END)
             root.update_idletasks()
-            box.see(END)        
             stream.truncate(0)
 
 
@@ -100,6 +101,7 @@ def generate_surface(box, root, button_list):
     stream = cStringIO.StringIO()
     sys.stdout = stream
 
+    # Try to convert all variables from the GUI to the respective data types
     try:
         N_int = int(N.get())
         M_int = int(M.get())
@@ -145,6 +147,7 @@ def generate_surface(box, root, button_list):
         else:
             print ("ERROR: Unknown ACF type selected.")
             update_box(box, stream, root)
+            thread.exit()
             restore_state(root, button_list)
             return
 
@@ -172,20 +175,23 @@ def generate_surface(box, root, button_list):
         hmap= s.heightmap(alpha,rand)
         update_box(box, stream, root)
 
+
+
     # Restore stdout to initial state
     sys.stdout = stdout_
-
     restore_state(root, button_list)
 
+    # Spawn a separate process that would plot the surface.
+    # This way the main GUI would become interactive much quicker
     plot_process = Process(target = lambda: plot_surface(N_int, M_int, hmap))
     plot_process.start()
     plot_process.join()
-    #plot_surface(N_int, M_int, hmap)
 
 
 def plot_surface(N, M, hmap):
     # Plot the final surface with a colourbar
     plt.figure(2)
+    plt.clf()
     plt.pcolormesh(range(N), range(M), hmap, cmap=plt.cm.RdYlBu_r)
     plt.title("Generated surface")
     plt.xlabel("Streamwise points")
@@ -202,7 +208,7 @@ def restore_state(root, button_list):
     root.config(cursor="")
 
 def save_as(self):
-    global hmap
+    global hmap, N, M, dx, dy
     self.f = tkFileDialog.asksaveasfilename(   
         filetypes = (("dat file", "*.dat"),    
                      ("CSV file", "*.csv"),
@@ -212,7 +218,18 @@ def save_as(self):
         if (file_ext) == ".dat":
             outputFile.write(hmap)
         elif (file_ext) == ".csv":
-            outputFile.write(hmap)
+            N_int = int(N.get())
+            M_int = int(M.get())
+            dx_fl = np.float64(dx.get())
+            dy_fl = np.float64(dy.get())
+            outputFile.write("X,Y,height\n")
+            for i in range(N_int):
+                for j in range(M_int):
+                    try:
+                        line = str(i*dx_fl)+","+ str(j*dy_fl) +","+ str(hmap[i][j])+"\n"
+                        outputFile.write(line)
+                    except:
+                        print (i, j)
         elif (file_ext) == ".stl":
             numpy2stl(hmap, self.f, solid=True, scale=10)
 
