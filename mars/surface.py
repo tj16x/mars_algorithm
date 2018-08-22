@@ -226,7 +226,6 @@ class surface():
     # Plots the residual after each iteration of the Krylov approximation
     def plot_residual(self, solution, residual):
         plt.figure(0)
-        plt.clf()
         plt.scatter(self.iterations, residual[0], marker='D', edgecolors='k', c='#FF33FF')
         
         plt.xlabel("Iteration")
