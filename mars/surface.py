@@ -47,7 +47,7 @@ class surface():
             print "WARNING: Too many points in the correlation function have been selected. The solution of the system might not converge successfully."
         elif n>30 or m>30:
             print "WARNING: Solving the system of equations might take more than an hour due to the high number of points selected in the ACF."
-        elif n>20 or m>30:
+        elif n>20 or m>20:
             print "WARNING: Solving the system of equations might take more than twenty minutes due to the number of points selected in the ACF."
 
     # Assemble autocorrelation coefficient function (ACF)
@@ -83,6 +83,7 @@ class surface():
     # Plots the contours of the provided ACF
     def plot_contour(self, acf):
         plt.figure(1)
+        plt.clf()
         plt.contourf(acf)
         plt.title("Contours of the Autocorrelation coefficient function")
 
@@ -208,7 +209,7 @@ class surface():
         if plot:
             x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.plot_residual, options=optionsList)
         else:
-           x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.print_residual, options=optionsList) 
+            x = root(self.f, self.f0().flatten(), self.acf, method='krylov',  tol=tolerance, callback=self.print_residual, options=optionsList)
 
         if x['success']:
             print("\n" + x['message'][:-1]+" after " +str(x['nit']) + " iterations.\n")
@@ -225,6 +226,7 @@ class surface():
     # Plots the residual after each iteration of the Krylov approximation
     def plot_residual(self, solution, residual):
         plt.figure(0)
+        plt.clf()
         plt.scatter(self.iterations, residual[0], marker='D', edgecolors='k', c='#FF33FF')
         
         plt.xlabel("Iteration")
