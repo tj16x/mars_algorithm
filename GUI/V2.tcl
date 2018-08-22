@@ -40,6 +40,7 @@ proc vTcl:project:info {} {
     set site_3_0 $base.lab42
     set site_3_0 $base.lab46
     set site_3_0 $base.lab53
+    set site_4_0 $site_3_0.scr42
     namespace eval ::widgets_bindings {
         set tagslist _TopLevel
     }
@@ -314,17 +315,24 @@ proc vTclWindow.top37 {base} {
         -height 125 -highlightcolor black -width 220 
     vTcl:DefineAlias "$top.lab53" "Labelframe3" vTcl:WidgetProc "Toplevel1" 1
     set site_3_0 $top.lab53
-    text $site_3_0.tex54 \
-        -background white -font TkTextFont -foreground black -height 95 \
-        -highlightcolor black -insertbackground black \
-        -selectbackground {#c4c4c4} -selectforeground black -state disabled \
-        -width 200 -wrap word 
-    .top37.lab53.tex54 configure -font TkTextFont
-    .top37.lab53.tex54 insert end text
-    vTcl:DefineAlias "$site_3_0.tex54" "Text1" vTcl:WidgetProc "Toplevel1" 1
-    place $site_3_0.tex54 \
-        -in $site_3_0 -x 10 -y 20 -width 200 -relwidth 0 -height 95 \
-        -relheight 0 -anchor nw -bordermode ignore 
+    vTcl::widgets::ttk::scrolledtext::CreateCmd $site_3_0.scr42 \
+        -background {#d9d9d9} -height 75 -highlightcolor black -width 125 
+    vTcl:DefineAlias "$site_3_0.scr42" "Scrolledtext1" vTcl:WidgetProc "Toplevel1" 1
+
+    $site_3_0.scr42.01 configure -background white \
+        -font TkTextFont \
+        -foreground black \
+        -height 3 \
+        -highlightcolor black \
+        -insertbackground black \
+        -insertborderwidth 3 \
+        -selectbackground #c4c4c4 \
+        -selectforeground black \
+        -width 10 \
+        -wrap none
+    place $site_3_0.scr42 \
+        -in $site_3_0 -x 10 -y 20 -width 200 -height 95 -anchor nw \
+        -bordermode ignore 
     ###################
     # SETTING GEOMETRY
     ###################
