@@ -216,7 +216,7 @@ class surface():
         else:
             print("WARNING: The Krylov algorithm did NOT converge succesfully.\n")
             print(x['message'])
-            return
+            return -1
         alpha = np.reshape(x['x'], [self.n,self.m])
     
         self.residual(alpha)

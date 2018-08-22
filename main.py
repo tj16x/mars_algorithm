@@ -46,7 +46,8 @@ s.plot_contour(acf)
 guess= s.f0()
 
 alpha= s.krylov(method="lgmres")
-
+if alpha == -1:
+    sys.exit("Error: The program couldn't finish execution.")
 # Step 3: Generate a random number matrix
 rescaled_skew, rescaled_kurt = s.rescale(alpha, skew, kurt)
 if (np.isnan(rescaled_skew)) and (np.isnan(rescaled_kurt)):
