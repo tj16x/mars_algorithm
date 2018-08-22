@@ -9,7 +9,8 @@
 import sys
 import cStringIO
 import numpy as np
-from time import strftime, gmtime
+from time import strftime
+from datetime import datetime
 from multiprocessing import Process
 
 # First we should tell matplotlib that we are using a tkinter based GUI.
@@ -78,7 +79,7 @@ def update_box(box, stream, root):
     ### --- Function to add text to the output box in the GUI --- ###
     if len(stream.getvalue())>0:
             box.configure(state=NORMAL)
-            time_stamp = strftime('%H:%M', gmtime())
+            time_stamp = datetime.now().strftime('%H:%M')
             new_text = "["+time_stamp + "] " + stream.getvalue()
             box.insert(END, new_text)
             box.configure(state=DISABLED)
@@ -231,7 +232,7 @@ def save_as(self):
                     except:
                         print (i, j)
         elif (file_ext) == ".stl":
-            numpy2stl(hmap, self.f, solid=True, scale=10)
+            numpy2stl(hmap, self.f, solid=True, scale=5)
 
 
 def init(top, gui, *args, **kwargs):
