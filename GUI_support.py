@@ -65,6 +65,7 @@ def set_Tk_var():
     kurtosis.set(3.5)
     global acf_type
     acf_type = StringVar()
+    acf_type.set("Exponential")
     global n
     n = StringVar()
     n.set(16)

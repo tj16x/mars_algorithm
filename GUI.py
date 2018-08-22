@@ -21,6 +21,7 @@ except ImportError:
     py3 = True
 
 import GUI_support
+import Adv_settings
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
@@ -47,6 +48,8 @@ def destroy_MARS():
     w.destroy()
     w = None
 
+def adv_settings():
+    Adv_settings.create_Advanced_settings(root)
 
 class MARS:
     def __init__(self, top=None):
@@ -361,6 +364,7 @@ class MARS:
 
         self.TButton4 = ttk.Button(top)
         self.TButton4.place(relx=0.31, rely=0.88, height=25, width=130)
+        self.TButton4.configure(command= adv_settings)
         self.TButton4.configure(takefocus="")
         self.TButton4.configure(text='''Advanced settings''')
 
