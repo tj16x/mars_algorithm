@@ -21,6 +21,7 @@ except ImportError:
     py3 = True
 
 import GUI_support
+import Adv_settings_support
 import Adv_settings
 
 def vp_start_gui():
@@ -28,6 +29,7 @@ def vp_start_gui():
     global val, w, root
     root = Tk()
     GUI_support.set_Tk_var()
+    Adv_settings_support.set_Tk_var()
     top = MARS (root)
     GUI_support.init(root, top)
     root.mainloop()

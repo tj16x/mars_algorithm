@@ -24,6 +24,7 @@ import matplotlib.pyplot as plt
 import mars
 from stl_tools import numpy2stl
 
+import Adv_settings_support
 
 try:
     from Tkinter import *
@@ -117,6 +118,13 @@ def generate_surface(box, root, button_list):
         rmsheight_float = np.float64(rmsheight.get())
         skewness_float = np.float64(skewness.get())
         kurtosis_float = np.float64(kurtosis.get())
+        display_contour = bool(Adv_settings_support.display_contour.get())
+        pl_residual = bool(Adv_settings_support.plot_residual.get())
+        mean_float = np.float32(Adv_settings_support.johnson_mean.get())
+        var_float = np.float32(Adv_settings_support.johnson_var.get())
+        tolerance_float = np.float32(Adv_settings_support.krylov_tol.get())
+        max_iter_int = int(Adv_settings_support.krylov_max_iter.get())
+        krylov_method = Adv_settings_support.krylov_method.get()
     except:
         print ("ERROR: Could not convert input data to the correct type. Check for any non-number inputs.")
         update_box(box, stream, root)
@@ -140,12 +148,13 @@ def generate_surface(box, root, button_list):
 
         print ("Attempting to generate a surface with Sk=" + skewness.get()\
                + " and Ku=" + kurtosis.get())
-
         update_box(box, stream, root)
 
         # Step 1: Specify ACF
         if (acf_type.get() == "Exponential"):
             acf= s.acf()
+            if display_contour:
+                s.plot_contour(acf)
         else:
             print ("ERROR: Unknown ACF type selected.")
             update_box(box, stream, root)
@@ -155,9 +164,13 @@ def generate_surface(box, root, button_list):
 
         # Step 2: Assemble & solve nonlinear system of equations
         guess= s.f0()
-        alpha= s.krylov(method="lgmres", plot=False)
-
+        alpha= s.krylov(method=krylov_method, plot=pl_residual,\
+                        tolerance=tolerance_float, maxiter=max_iter_int)
         update_box(box, stream, root)
+        if alpha == -1:
+            sys.stdout = stdout_
+            restore_state(root, button_list)
+            return
 
         # Step 3: Generate a random number matrix
         rescaled_skew, rescaled_kurt = s.rescale(
@@ -168,9 +181,11 @@ def generate_surface(box, root, button_list):
         if (np.isnan(rescaled_skew)) and (np.isnan(rescaled_kurt)):
             print("ERROR: The program can't generate the surface because of the input Skew and Kurtosis.")
             update_box(box,stream, root)
+            sys.stdout = stdout_
             restore_state(root, button_list)
             return
-        rand= s.johnson_eta(rescaled_skew, rescaled_kurt)
+        rand= s.johnson_eta(rescaled_skew, rescaled_kurt, mean=mean_float,\
+                            var=var_float)
         update_box(box, stream, root)
 
         # Step 4: Generate the heightmap
