@@ -167,7 +167,7 @@ def generate_surface(box, root, button_list):
         alpha= s.krylov(method=krylov_method, plot=pl_residual,\
                         tolerance=tolerance_float, maxiter=max_iter_int)
         update_box(box, stream, root)
-        if alpha == -1:
+        if len(alpha) == 1 and alpha[0] == -1:
             sys.stdout = stdout_
             restore_state(root, button_list)
             return
