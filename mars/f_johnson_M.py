@@ -140,7 +140,20 @@ def sub_jnsn(xbar,sd,rb1,bb2):
     # Define constants:
     tol = 0.01; zero = 0.0; quart = 0.25; half = 0.5; one = 1.0; two = 2.0;
     three = 3.0; four  = 4.0;
+
+    global gamma, delta, xlam, xi, itype
     
+    # Check for negative SD:
+    if (sd < zero):
+        itype  = np.nan; gamma = np.nan; delta = np.nan; xlam = np.nan; xi = np.nan; ifault = 1;
+        return
+    else:
+        ifault = 0
+        xi     = zero
+        xlam   = zero
+        gamma  = zero
+        delta  = zero
+
     ################################################################################
     #                              NESTED FUNCTION:                                #
     ################################################################################
@@ -168,18 +181,7 @@ def sub_jnsn(xbar,sd,rb1,bb2):
         else:
             print('Unknown parameter for WHERE!')
             return
-    
-    
-    # Check for negative SD:
-    if (sd < zero):
-        itype  = np.nan; gamma = np.nan; delta = np.nan; xlam = np.nan; xi = np.nan; ifault = 1;
-        return
-    else:
-        ifault = 0
-        xi     = zero
-        xlam   = zero
-        gamma  = zero
-        delta  = zero
+
     
     if (sd > zero):
         b1    = rb1*rb1
@@ -539,6 +541,7 @@ def sub_mom(g,d):
         stop_inn = 0
         while (stop_inn==0):
             m = m + 1
+            break_out = 0
             if (m > limit):
                 break # terminate INNER WHILE loop
             for i in range(6):
