@@ -216,7 +216,7 @@ class surface():
         else:
             print("WARNING: The Krylov algorithm did NOT converge succesfully.\n")
             print(x['message'])
-            return -1
+            return [-1]
         alpha = np.reshape(x['x'], [self.n,self.m])
     
         self.residual(alpha)
@@ -338,11 +338,18 @@ class surface():
         delta = j_inputs['coef'][1]
         xi    = j_inputs['coef'][2]
         lmbd  = j_inputs['coef'][3]
-        
+
         if (j_inputs['type'] == 'SU'):
             self.rand = johnsonsu.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
-        else:
+        elif (j_inputs['type'] == 'SB'):
             self.rand = johnsonsb.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
+        else:
+            if (lmbd > 0):
+                self.rand = johnsonsb.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
+                print ("Attempting to use the next best Johnson distribution as "\
+                       + j_inputs['type'] + " is unavailable.")
+            else:
+                print ("Error: This type of Johnson distribution is unsupported.")
 
         return self.rand
     
