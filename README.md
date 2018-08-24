@@ -24,6 +24,12 @@ The program comes with both command-line and graphical interfaces. To run the CL
 ```
 python main.py
 ```
-All the parameters of the surface generation are stored in the file. If you want to change of them, you should edit the file manually as argument parsing has not been included yet.
+All the parameters of the surface generation are stored in the file. If you want to change any of them, you should edit the file manually as argument parsing has not been added yet.
+
+You can run the GUI by executing the GUI.py file:
+```
+python GUI.py
+```
+It provides more detailed control of the surface generation process, as well as more advanced options to the user.
 
 ### UNDER CONSTRUCTION!
