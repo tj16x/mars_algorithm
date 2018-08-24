@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import root
 from scipy.stats import johnsonsu,johnsonsb, skew, kurtosis
 from f_johnson_M import f_johnson_M
+from johnson_distributions import johnsonsl, johnsonsn
 
 # Surface class
 class surface():
@@ -343,6 +344,11 @@ class surface():
             self.rand = johnsonsu.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
         elif (j_inputs['type'] == 'SB'):
             self.rand = johnsonsb.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
+        elif (j_inputs['type'] == 'SL'):
+            print (j_inputs)
+            self.rand = johnsonsl.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
+        elif (j_inputs['type'] == 'SN'):
+            self.rand = johnsonsn.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
         else:
             if (lmbd > 0):
                 self.rand = johnsonsb.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
