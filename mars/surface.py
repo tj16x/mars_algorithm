@@ -340,13 +340,17 @@ class surface():
         xi    = j_inputs['coef'][2]
         lmbd  = j_inputs['coef'][3]
 
+        print (j_inputs)
+
         if (j_inputs['type'] == 'SU'):
             self.rand = johnsonsu.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
         elif (j_inputs['type'] == 'SB'):
             self.rand = johnsonsb.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
         elif (j_inputs['type'] == 'SL'):
+            print ("Warning: Attempting to use one of the unreliable Johnson distributions.")
             self.rand = johnsonsl.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
         elif (j_inputs['type'] == 'SN'):
+            print ("Warning: Attempting to use one of the unreliable Johnson distributions.")
             self.rand = johnsonsn.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
         else:
             if (lmbd > 0):

@@ -158,7 +158,6 @@ def generate_surface(box, root, button_list):
         else:
             print ("ERROR: Unknown ACF type selected.")
             update_box(box, stream, root)
-            thread.exit()
             restore_state(root, button_list)
             return
 
