@@ -200,7 +200,7 @@ def generate_surface(box, root, button_list):
 
     # Spawn a separate process that would plot the surface.
     # This way the main GUI would become interactive much quicker
-    plot_process = Process(target = lambda: plot_surface(N_int, M_int, hmap))
+    plot_process = Process(target = lambda: plot_surface(N_int, M_int, np.transpose(hmap)))
     plot_process.start()
     plot_process.join()
 

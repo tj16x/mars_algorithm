@@ -45,11 +45,11 @@ class surface():
         self.iterations = 0
 
         if n>40 or m>40:
-            print "WARNING: Too many points in the correlation function have been selected. The solution of the system might not converge successfully."
+            print ("WARNING: Too many points in the correlation function have been selected. The solution of the system might not converge successfully.")
         elif n>30 or m>30:
-            print "WARNING: Solving the system of equations might take more than an hour due to the high number of points selected in the ACF."
+            print ("WARNING: Solving the system of equations might take more than an hour due to the high number of points selected in the ACF.")
         elif n>20 or m>20:
-            print "WARNING: Solving the system of equations might take more than twenty minutes due to the number of points selected in the ACF."
+            print ("WARNING: Solving the system of equations might take more than twenty minutes due to the number of points selected in the ACF.")
 
     # Assemble autocorrelation coefficient function (ACF)
     def acf(self):
@@ -345,7 +345,6 @@ class surface():
         elif (j_inputs['type'] == 'SB'):
             self.rand = johnsonsb.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
         elif (j_inputs['type'] == 'SL'):
-            print (j_inputs)
             self.rand = johnsonsl.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])
         elif (j_inputs['type'] == 'SN'):
             self.rand = johnsonsn.rvs(gamma, delta, loc=xi, scale=lmbd, size=[self.N+self.n,self.M+self.m])

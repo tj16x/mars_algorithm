@@ -32,4 +32,10 @@ python GUI.py
 ```
 It provides more detailed control of the surface generation process, as well as more advanced options to the user.
 
+## Known problems/bugs
+
+*Rectangular surfaces from CLI - At present, the CLI of the program generates only square surfaces.
+
+*Unsupported Johnson distribution types - The program makes use of 4 different types of Johnsons random variables. Presently the program has implementetions of all 4 of them but only 2 have been tested and proven to work reliably. The Johnson SL and SN distributions still need to be developed further.
+
 ### UNDER CONSTRUCTION!
