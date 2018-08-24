@@ -30,7 +30,7 @@ dx=1
 dy=1
 cutoff=1e-5
 phi=0
-skew=0.5
+skew=0.3
 kurt=3.5
 fout='heightmap.dat'
 
